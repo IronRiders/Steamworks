@@ -15,7 +15,7 @@ public class DriveTrain {
 	public void updateSpeed(double[] JoystickInfo) {
 		double x = JoystickInfo[0];
 		double y = JoystickInfo[1];
-		if (backwards = true ){
+		if (backwards){
 			leftVictor.set((-y + x) * .50); //max speed is 35% of normal max speed
 			rightVictor.set((y + x) * .50); //aka speed cap instated
 		}
@@ -26,11 +26,6 @@ public class DriveTrain {
 	}
 	
 	public void toggleBackwards() {
-		if(backwards == true){
-			backwards = false;
-		}
-		else{
-			backwards = true;
-		}
+		backwards =! backwards;
 	}
 }
