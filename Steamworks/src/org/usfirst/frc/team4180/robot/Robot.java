@@ -8,14 +8,32 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 	
-	private static final int DRIVING_JOYSTICK_PORT = 1;
+	private static final int DRIVING_JOYSTICK_PORT = -1;
+	private static final int CLIMBING_JOYSTICK_PORT = -1;
+	private static final int LEFT_DRIVETRAIN_PORT = -1;
+	private static final int RIGHT_DRIVETRAIN_PORT = -1;
+	private static final int CLIMBER_PORT = -1;
+	private static final int RAMP_PORT = -1;
 	
-	private DriveTrain DriveTrain;
+	private DriveTrain driveTrain;
 	private LambdaJoystick drivingJoystick;
+	private Climber climber;
+	private LambdaJoystick climbingJoystick;
+	private Ramp ramp;
 	
     public void robotInit() {
-        drivingJoystick = new LambdaJoystick(DRIVING_JOYSTICK_PORT, joystickInfo -> DriveTrain.updateSpeed(joystickInfo));
- 		drivingJoystick.addButton(6, () -> {DriveTrain.toggleBackwards();},  () -> {});
+    	
+    	ramp = new Ramp(RAMP_PORT);
+    	driveTrain = new DriveTrain(LEFT_DRIVETRAIN_PORT,RIGHT_DRIVETRAIN_PORT);
+    	climber = new Climber(CLIMBER_PORT);
+    	
+        drivingJoystick = new LambdaJoystick(DRIVING_JOYSTICK_PORT, driveTrain::updateSpeed);
+ 		drivingJoystick.addButton(6, driveTrain::toggleBackwards,  () -> {});
+ 		//not yet implemented
+ 		//drivingJoystick.addButton(1, ramp::updateSpeed,  () -> {});
+ 		
+ 		climbingJoystick = new LambdaJoystick(CLIMBING_JOYSTICK_PORT, climber::updateSpeed);
+ 		
     }
     
 
