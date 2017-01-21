@@ -2,7 +2,7 @@ package org.usfirst.frc.team4180.robot;
 
 import edu.wpi.first.wpilibj.VictorSP;
 
-public class climber {
+public class Climber {
 	private VictorSP victor;
 	
 	private boolean backwards = false;
