@@ -3,7 +3,7 @@ package org.usfirst.frc.team4180.robot;
 import edu.wpi.first.wpilibj.VictorSP;
 
 public class Climber {
-	private VictorSP  ClimbVictor;
+	private VictorSP  ClimbVictor; // set a victor for climb
 
 	public Climber(int VictorPort) {
 		ClimbVictor = new VictorSP(VictorPort);
