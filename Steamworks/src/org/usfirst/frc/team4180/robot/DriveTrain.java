@@ -20,8 +20,8 @@ public class DriveTrain {
 			rightVictor.set((y + x) * .50); //aka speed cap instated
 		}
 		else {
-		leftVictor.set((y - x) * .50); //max speed is 35% of normal max speed
-		rightVictor.set((-y -x) * .50); //aka speed cap instated
+			leftVictor.set((y - x) * .50); //max speed is 35% of normal max speed
+			rightVictor.set((-y -x) * .50); //aka speed cap instated
 		}
 	}
 	
