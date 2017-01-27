@@ -37,4 +37,12 @@ public class DriveTrain {
 	public void setBackwards(boolean value) {
 		backwards = value;
 	}
+	
+	public VictorSP getLeftVictor() {
+		return leftVictor;
+	}
+
+	public VictorSP getRightVictor() {
+		return rightVictor;
+	}
 }
