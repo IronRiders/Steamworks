@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.VictorSP;
 public class Climber { //This class is to climb the rope at the end of round.
 
 	private VictorSP  ClimbVictor; //Declares the variable ClimbVictor - which is a motor
-	private DigitalInput topSwitch;
+	private DigitalInput topSwitch; // Declares variable topSwitch 
 
 	public Climber(int VictorPort, int TopSwitchPort) { //Method Climber takes in the port that ClimbVictor is plugged into, and creates ClimbVictor
 
@@ -26,7 +26,7 @@ public class Climber { //This class is to climb the rope at the end of round.
 	}
 	
 	public boolean checkTopSwitch() {
-		return topSwitch.get();
+		return topSwitch.get(); // Returns true or false if switch is down
 	}
 
 	
