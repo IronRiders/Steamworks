@@ -2,4 +2,4 @@
 
 # Iron Riders Steamworks Code
 
-The Roosevelt Iron Riders', Team 4180's Itterative Java program for the 2017 FIRST Robotics Competition, Steamworks.
+The Roosevelt Iron Riders', Team 4180's Iterative Java program for the 2017 FIRST Robotics Competition, Steamworks.
