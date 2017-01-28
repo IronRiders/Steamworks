@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import edu.wpi.first.wpilibj.PWMConfigDataResult;
 
 @SuppressWarnings("AbbreviationAsWordInName")
-public class PWMJNI extends DIOJNI {
+public class PWMJNI extends DIOJNI_bad {
 
 	protected static ArrayList<Double> pwmSpeed = new ArrayList<Double>();
 	
