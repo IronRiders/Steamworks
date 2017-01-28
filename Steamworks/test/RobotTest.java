@@ -6,7 +6,8 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.hal.DIOJNI_bad;
+import edu.wpi.first.wpilibj.hal.DIOJNI;
+
 
 @PrepareForTest({Timer.class})
 public abstract class RobotTest {
@@ -22,7 +23,6 @@ public abstract class RobotTest {
 	}
 	
 	public static void setDigitalInputOnPortTo(int portNumber, boolean value) {
-		DIOJNI_bad.setDIO(portNumber, (short)(value ? 1 : 0));
+		DIOJNI.setDIO(portNumber, (short)(value ? 1 : 0));
 	}
-	
 }

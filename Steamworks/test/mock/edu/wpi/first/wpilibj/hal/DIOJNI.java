@@ -2,7 +2,7 @@ package edu.wpi.first.wpilibj.hal;
 
 import java.util.ArrayList;
 
-public class DIOJNI_bad extends JNIWrapper {
+public class DIOJNI extends JNIWrapper {
 	
 	protected static ArrayList<Boolean> dioValue = new ArrayList<Boolean>();
 	
