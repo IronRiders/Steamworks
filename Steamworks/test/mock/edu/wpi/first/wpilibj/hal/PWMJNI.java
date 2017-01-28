@@ -1,20 +1,13 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) FIRST 2016-2017. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package edu.wpi.first.wpilibj.hal;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import edu.wpi.first.wpilibj.PWMConfigDataResult;
 
-@SuppressWarnings("AbbreviationAsWordInName")
 public class PWMJNI extends DIOJNI {
 
-	protected static ArrayList<Double> pwmSpeed = new ArrayList<Double>();
+	protected static Map<Integer, Double> pwmSpeed = new HashMap<Integer, Double>();
 	
 	public static int initializePWMPort(int halPortHandle) {
 		return halPortHandle;
@@ -50,7 +43,7 @@ public class PWMJNI extends DIOJNI {
 	}
 
 	public static void setPWMSpeed(int pwmPortHandle, double speed) {
-		pwmSpeed.add(pwmPortHandle, speed);
+		pwmSpeed.put(pwmPortHandle, speed);
 	}
 
 	public static void setPWMPosition(int pwmPortHandle, double position) {
