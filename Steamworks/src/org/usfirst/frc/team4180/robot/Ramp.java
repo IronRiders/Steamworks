@@ -47,5 +47,8 @@ public class Ramp {
 		return leftGearCheckSwitch.get();
 
 	}
+	public VictorSP getVictor(){
+		return RampVictor;
+	}
 
 }
