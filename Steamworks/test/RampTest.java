@@ -33,13 +33,13 @@ public class RampTest extends RobotTest {
 		// Positive test tests that the ramp speed is what it's supposed to be, 0.25
 		setDigitalInputOnPortTo(2, false);
 		rampFunction.accept(ramp);
-		Assert.assertEquals(-0.25, victor.get(), 0);
+		Assert.assertEquals(expectedSpeed, victor.get(), 0);
 		
 		// Negative test tests that the ramp speed is not what it's not supposed to be, 0.25
 		setDigitalInputOnPortTo(2, true);
 		ramp.off();
 		rampFunction.accept(ramp);
-		Assert.assertNotEquals(-0.25, victor.get(), 0);
+		Assert.assertNotEquals(expectedSpeed, victor.get(), 0);
 	}
 
 	
