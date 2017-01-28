@@ -23,7 +23,7 @@ public class PortsJNI extends JNIWrapper {
 
   public static int getNumPWMHeaders() { return 0; }
 
-  public static int getNumDigitalChannels() { return 0; }
+  public static int getNumDigitalChannels() { return 9; }
 
   public static int getNumPWMChannels() { return 0; }
 
