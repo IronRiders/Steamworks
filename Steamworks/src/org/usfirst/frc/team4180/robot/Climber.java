@@ -1,31 +1,37 @@
 package org.usfirst.frc.team4180.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.VictorSP;
 
+public class Climber { // This class is to climb the rope at the end of round.
 
-public class Climber {
+	private VictorSP ClimbVictor; // Declares the variable ClimbVictor - which
+									// is a motor
+	private DigitalInput topSwitch; // Declares variable topSwitch
 
-
-	private VictorSP  ClimbVictor;
-
-
-
-	public Climber(int VictorPort) {
+	public Climber(int VictorPort, int TopSwitchPort) { // Method Climber takes
+														// in the port that
+														// ClimbVictor is
+														// plugged into, and
+														// creates ClimbVictor
 
 		ClimbVictor = new VictorSP(VictorPort);
+		topSwitch = new DigitalInput(TopSwitchPort);
 
 	}
-
 
 	public void updateSpeed(double[] JoystickInfo) {
 
-		double x = JoystickInfo[0];
+		double y = JoystickInfo[1]; // Creates y which is the y axis of the
+									// joystick
 
-		double y = JoystickInfo[1];
-
-		ClimbVictor.set(y - x); 
+		ClimbVictor.set(y); // Sets the climb victor to go up/down based on
+							// joystick movments.
 
 	}
 
-	
+	public boolean checkTopSwitch() {
+		return topSwitch.get(); // Returns true or false if switch is down
+	}
+
 }

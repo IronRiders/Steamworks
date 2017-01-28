@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="C:/Users/Iron Riders/wpilib/java/current/lib/WPILib.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Iron Riders/wpilib/java/current/lib/NetworkTables.jar"/>
+	<classpathentry kind="src" path="test/mock"/>
+	<classpathentry excluding="mock/" kind="src" path="test"/>
 	<classpathentry kind="var" path="wpilib" sourcepath="wpilib.sources"/>
 	<classpathentry kind="var" path="networktables" sourcepath="networktables.sources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="var" path="opencv" sourcepath="opencv.sources"/>
 	<classpathentry kind="var" path="cscore" sourcepath="cscore.sources"/>
+	<classpathentry kind="lib" path="lib/javassist.jar"/>
+	<classpathentry kind="lib" path="lib/mockito-all-1.10.19.jar"/>
+	<classpathentry kind="lib" path="lib/powermock-api-mockito-1.6.4.jar"/>
+	<classpathentry kind="lib" path="lib/powermock-api-support-1.6.4.jar"/>
+	<classpathentry kind="lib" path="lib/powermock-classloading-base-1.6.4.jar"/>
+	<classpathentry kind="lib" path="lib/powermock-core-1.6.4.jar"/>
+	<classpathentry kind="lib" path="lib/powermock-module-junit4-1.6.4.jar"/>
+	<classpathentry kind="lib" path="lib/powermock-module-junit4-common-1.6.4.jar"/>
+	<classpathentry kind="lib" path="lib/powermock-reflect-1.6.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
