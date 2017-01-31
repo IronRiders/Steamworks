@@ -12,7 +12,7 @@ public class DIOJNI extends JNIWrapper {
 	}
 	
 	public static void freeDIOPort(int dioPortHandle) {
-		dioValue.put(dioPortHandle, null);
+		dioValue.remove(dioPortHandle);
 	}
 	
 	public static int initializeDIOPort(int dioPortHandle, boolean input) {
