@@ -19,7 +19,11 @@ public class Climber {
 		double y = JoystickInfo[1];						
 		ClimbVictor.set(y); 
 	}
-
+	
+	public double getSpeed(){
+		return ClimbVictor.get();		
+	}
+	
 	public boolean checkTopSwitch() {
 		return topSwitch.get(); 
 	}
