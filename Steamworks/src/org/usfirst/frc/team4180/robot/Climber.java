@@ -24,6 +24,9 @@ public class Climber {
 			ClimbVictor.set(y); 
 		}
 	}
+	public double getSpeed(){
+		return ClimbVictor.get();
+	}
 
 	public boolean atTop() {
 		return topSwitch.get(); 
