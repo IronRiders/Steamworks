@@ -17,10 +17,15 @@ public class Climber {
 	//sets speed of motor to the y location of the joystick.
 	public void updateSpeed(double[] JoystickInfo) { 
 		double y = JoystickInfo[1];						
-		ClimbVictor.set(y); 
+		if (atTop() && y > 0) {
+			ClimbVictor.set(0);
+		}
+		else {
+			ClimbVictor.set(y); 
+		}
 	}
 
-	public boolean checkTopSwitch() {
+	public boolean atTop() {
 		return topSwitch.get(); 
 	}
 
