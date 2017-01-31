@@ -11,17 +11,17 @@ public class Ramp {
 	private DigitalInput rightGearCheckSwitch;
 	private DigitalInput leftGearCheckSwitch;
 	
-	int idealSpeed = 0;
+	double idealSpeed = 0;
 
 	public Ramp(int SparkPort, int upSwitchPort, int downSwitchPort, int leftCheckPort, int rightCheckPort) {
 		RampSpark = new Spark(SparkPort);
 		upSwitch = new DigitalInput(upSwitchPort);
 		downSwitch = new DigitalInput(downSwitchPort);
 		rightGearCheckSwitch = new DigitalInput(rightCheckPort);
-		leftGearCheckSwitch = new DigitalInput(leftCheckPort);S
+		leftGearCheckSwitch = new DigitalInput(leftCheckPort);
 	}
 
-	public void setIdealSpeed(int idealSpeed) {
+	public void setIdealSpeed(double idealSpeed) {
 		 this.idealSpeed = idealSpeed;
 	}
 	

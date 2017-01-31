@@ -39,10 +39,9 @@ public class Robot extends IterativeRobot {
 
 		drivingJoystick = new LambdaJoystick(DRIVING_JOYSTICK_PORT, driveTrain::updateSpeed);
 
-		drivingJoystick.addButton(6, driveTrain::toggleBackwards, () -> {
-		});
-		drivingJoystick.addButton(11, ramp::onUp, ramp::off);
-		drivingJoystick.addButton(10, ramp::onDown, ramp::off);
+		drivingJoystick.addButton(6, driveTrain::toggleBackwards, () -> {});
+		drivingJoystick.addButton(1, () -> ramp.setIdealSpeed(0.5), () -> ramp.setIdealSpeed(0));
+		drivingJoystick.addButton(3, () -> ramp.setIdealSpeed(-0.5), () -> ramp.setIdealSpeed(0)); 
 
 		climbingJoystick = new LambdaJoystick(CLIMBING_JOYSTICK_PORT, climber::updateSpeed);
 
@@ -55,6 +54,9 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void teleopPeriodic() {
+		climbingJoystick.listen();
+		drivingJoystick.listen();
+		ramp.updateSpeed();
 	}
 
 	public void testPeriodic() {
