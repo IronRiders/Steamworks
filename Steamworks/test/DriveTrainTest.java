@@ -10,7 +10,7 @@ import org.usfirst.frc.team4180.robot.DriveTrain;
 public class DriveTrainTest extends RobotTest {
 
 	@Test
-	public void testToggleBackwards() {
+	public void test() {
 		DriveTrain drivetrain = new DriveTrain(0, 1);
 		
 		Assert.assertEquals(false, drivetrain.getBackwards());

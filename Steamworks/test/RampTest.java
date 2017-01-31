@@ -19,20 +19,24 @@ import static org.usfirst.frc.team4180.robot.Robot.*;
 public class RampTest extends RobotTest {
 	@Test
 	public void testOnUp() {
-		testRamp(0.25, Ramp::onUp,UP_SWITCH_PORT );
+		testRamp(0.25, true,UP_SWITCH_PORT );
 	}
 	
 	@Test
 	public void testOnDown(){
-		testRamp(-0.25, Ramp::onDown, DOWN_SWITCH_PORT);
+		testRamp(-0.25, false, DOWN_SWITCH_PORT);
 	}
 	
-	public void testRamp(double expectedSpeed, Consumer<Ramp> rampFunction, int portNumber){
+	public void testRamp(double expectedSpeed, boolean up, int portNumber){
 		Ramp ramp = new Ramp(RAMP_PORT, UP_SWITCH_PORT, DOWN_SWITCH_PORT, LEFT_CHECK_PORT, RIGHT_CHECK_PORT);
 		VictorSP victor = ramp.getVictor();
 		
 		// Positive test tests that the ramp speed is what it's supposed to be, 0.25
 		setDigitalInputOnPortTo(portNumber, false);
+		if(up){
+			ramp.onUp();
+			
+		}
 		rampFunction.accept(ramp);
 		Assert.assertEquals(expectedSpeed, victor.get(), 0);
 		
