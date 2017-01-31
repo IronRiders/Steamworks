@@ -36,6 +36,18 @@ public class Ramp {
 			RampSpark.set(0);
 		}
 	}
+
+	public void up() {
+		setIdealSpeed(0.5);
+	}
+	
+	public void down() {
+		setIdealSpeed(-0.5);
+	}
+	
+	public void stop() {
+		setIdealSpeed(0);
+	}
 	
 	public boolean rightGearCheck() {
 		return rightGearCheckSwitch.get();
