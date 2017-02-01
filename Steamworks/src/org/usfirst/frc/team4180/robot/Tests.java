@@ -12,7 +12,7 @@ public class Tests {
 	// This is a stress test that drives the robot around in circles
 	// switching direction after a certain period of time
 	public void circles() {
-		Timer stressTestOne = new Timer();
+		/*Timer stressTestOne = new Timer();
 		stressTestOne.start();
 		double[] joystickLocation = new double[]{0,1};
 		
@@ -22,7 +22,7 @@ public class Tests {
 			
 			
 			
-		}
+		}*/
 		
 	
 	}
