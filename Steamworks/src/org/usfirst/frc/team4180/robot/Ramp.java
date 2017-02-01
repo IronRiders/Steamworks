@@ -24,12 +24,12 @@ public class Ramp {
 	public void setIdealSpeed(double idealSpeed) {
 		 this.idealSpeed = idealSpeed;
 	}
-	
+
 	public void updateSpeed() {
-		if (idealSpeed <= 0 && ! downSwitch.get()) {
+		if (idealSpeed <= 0 && !downSwitch.get()) {
 			RampSpark.set(idealSpeed);
 		}
-		else if (idealSpeed >= 0 && ! upSwitch.get()) {
+		else if (idealSpeed >= 0 && !upSwitch.get()) {
 			RampSpark.set(idealSpeed);
 		}
 		else {
