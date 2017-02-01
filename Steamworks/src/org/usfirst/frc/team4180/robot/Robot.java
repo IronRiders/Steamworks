@@ -57,8 +57,8 @@ public class Robot extends IterativeRobot {
 		drivingJoystick = new LambdaJoystick(DRIVING_JOYSTICK_PORT, driveTrain::updateSpeed);
 
 		drivingJoystick.addButton(6, driveTrain::toggleBackwards, () -> {});
-		drivingJoystick.addButton(1, () -> ramp.up(), () -> ramp.stop());
-		drivingJoystick.addButton(3, () -> ramp.down(), () -> ramp.stop()); 
+		drivingJoystick.addButton(1, ramp::up, ramp::stop);
+		drivingJoystick.addButton(3, ramp::down, ramp::stop); 
 
 		climbingJoystick = new LambdaJoystick(CLIMBING_JOYSTICK_PORT, climber::updateSpeed);
 
