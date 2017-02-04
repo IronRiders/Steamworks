@@ -1,4 +1,6 @@
 language: java
-script: ant run-unit-tests -Dant.java.version=1.8
+before_install: sudo apt-get -qq update && sudo apt=get install ant
+script: ant run-unit-tests
+sudo: required
 jdk:
 - oraclejdk8
