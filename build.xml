@@ -26,8 +26,6 @@
   <property file="build.properties"/>
   
   <import file="${wpilib.ant.dir}/build.xml"/>
-
-  <property name="ant.java.version" value="1.8" />
 	
   <path id="classpath.test">
   	<path refid="classpath.path" />

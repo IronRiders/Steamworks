@@ -1,4 +1,4 @@
 language: java
-script: ant run-unit-tests
+script: ant run-unit-tests -Dant.java,version=1.8
 jdk:
 - oraclejdk8
