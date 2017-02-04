@@ -1,5 +1,5 @@
 language: java
-before_install: sudo apt-get -qq update && sudo apt=get install ant
+before_install: sudo apt-get -qq update && sudo apt-get install ant
 script: ant run-unit-tests
 sudo: required
 jdk:
