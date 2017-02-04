@@ -2,6 +2,7 @@ language: java
 script: ant run-unit-tests
 notifications:
   slack:
+    template: Code change <%{compare_url}|%{commit}> by %{author} **%{result}** unit tests! \n\n %{message}
     secure: jPITB1teZhans5T7kRsU5JQklAtFiQkCyW2WClfZqPeeBwoa/S6frdu5hWTmjJ9XEWQ33ck/Dpz3M1vWCtDneOtplX4JXe/AZMfEESsrCy1V4vaPhOlVA2BtCJwXpjnex5Cf9voMb0OnIeyIHY3o5HKA8+M+HDDTjMjniW7pHWajYFuYxDFvsj9dVqp3OIbTMSWjNBnaggaHgXq/CfI+eLmFh8SrkU4eR4F+RE13nz/Hb2Ogfa2qunaPRYBv0pCSHMYLHXw4qqG2Gj8l70fT34J0XGlU4oYX5erloVap/vvWVTPpMpNzIt2RXGx7OkwOzWtTpuvMnpQY9F5WLmNk7c6w0LIrHs7Xw56WT91bJvJJTIX5Bkjdho71gHis5A9QTv5HKV9id9NfEURkz79/7Ie9qT5o07YOmkApN8BRNp81zKvONOoYTIgZXZObrCklDQrqpWUxdsuN62urteXHKLYLFqbkthguJUHup5lCWiE84U0tYAMgX3DBIyeoB6exaXaUgNYkj7Oc7KS3l5BuKzXsPNGgTngjjM7mTzvfmqE+b/RKgADhr0pAz7D993NRPESYDsjNKtUQUduwQaPYgejNGBWMs53cdgH6+KMVS68GAW81PEvHo9pIf7xfunOw5Y1yqySdE39bmB4K3GtbGf8eexoo20083QEnIDHSHmI=
 jdk: oraclejdk8
 dist: trusty
