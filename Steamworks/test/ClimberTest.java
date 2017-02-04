@@ -1,10 +1,11 @@
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.usfirst.frc.team4180.robot.Climber;
 import org.usfirst.frc.team4180.robot.DriveTrain;
+
+import static org.usfirst.frc.team4180.robot.Robot.*;
 
 @RunWith(PowerMockRunner.class)
 public class ClimberTest extends RobotTest {
@@ -33,9 +34,18 @@ public class ClimberTest extends RobotTest {
 		Assert.assertEquals(2, climber.getSpeed(), 0);
 	}
 	
+	@Test
+	public void testAtTop(){
+		Climber climber  = new Climber(0, 1);// set this to the right port numbers
+		
+		setDigitalInputOnPortTo(TOP_SWITCH_PORT, false);
+		Assert.assertEquals(climber.atTop(), false);
+		setDigitalInputOnPortTo(TOP_SWITCH_PORT, true);
+		Assert.assertEquals(climber.atTop(), true);
+		
+	}
+	
 }
 
 	
-	
-
 
