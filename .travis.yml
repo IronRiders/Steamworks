@@ -1,8 +1,5 @@
 language: java
-before_install: 
-- sudo apt-get upgrade ant -qq
 script: ant run-unit-tests
-jdk:
-- oraclejdk8
+jdk: oraclejdk8
 dist: trusty
 sudo: required
