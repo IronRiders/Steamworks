@@ -60,7 +60,7 @@
       </classpath>
       <formatter type="brief" usefile="false" />
       <batchtest>
-        <fileset dir="${test.src.dir}" includes="**/*Test.java" />
+        <fileset dir="${test.src.dir}" includes="**/*Test.java" excludes="**/RobotTest.java" />
       </batchtest>
     </junit>
   </target>
