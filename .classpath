@@ -3,12 +3,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test/mock"/>
 	<classpathentry excluding="mock/" kind="src" path="test"/>
-	<classpathentry kind="var" path="wpilib" sourcepath="wpilib.sources"/>
-	<classpathentry kind="var" path="networktables" sourcepath="networktables.sources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="var" path="opencv" sourcepath="opencv.sources"/>
-	<classpathentry kind="var" path="cscore" sourcepath="cscore.sources"/>
 	<classpathentry kind="lib" path="lib/javassist.jar"/>
 	<classpathentry kind="lib" path="lib/mockito-all-1.10.19.jar"/>
 	<classpathentry kind="lib" path="lib/powermock-api-mockito-1.6.4.jar"/>
@@ -18,5 +14,9 @@
 	<classpathentry kind="lib" path="lib/powermock-module-junit4-1.6.4.jar"/>
 	<classpathentry kind="lib" path="lib/powermock-module-junit4-common-1.6.4.jar"/>
 	<classpathentry kind="lib" path="lib/powermock-reflect-1.6.4.jar"/>
+	<classpathentry kind="lib" path="lib/wpilib/lib/cscore.jar" sourcepath="lib/wpilib/lib/cscore-sources.jar"/>
+	<classpathentry kind="lib" path="lib/wpilib/lib/NetworkTables.jar" sourcepath="lib/wpilib/lib/NetworkTables-sources.jar"/>
+	<classpathentry kind="lib" path="lib/wpilib/lib/opencv.jar" sourcepath="lib/wpilib/lib/opencv-sources.jar"/>
+	<classpathentry kind="lib" path="lib/wpilib/lib/WPILib.jar" sourcepath="lib/wpilib/lib/WPILib-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
