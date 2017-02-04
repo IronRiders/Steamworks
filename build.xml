@@ -52,7 +52,7 @@
   </target>
 	
   <target name="run-unit-tests" depends="compile, test-compile">
-    <junit printsummary="on" haltonfailure="yes" fork="yes">
+    <junit printsummary="on" haltonfailure="no" fork="yes">
       <classpath>
       	<!-- !! THIS ORDER IS VERY IMPORTANT !! -->
       	<pathelement location="${test.build.dir}" />
