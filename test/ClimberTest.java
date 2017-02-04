@@ -24,7 +24,7 @@ public class ClimberTest extends RobotTest {
 	public void testUpdateSpeed() {
 		Climber climber = new Climber(CLIMBER_PORT, TOP_SWITCH_PORT);
 		
-		setDigitalInputOnPortTo(TOP_SWITCH_PORT, true);
+		setDigitalInputOnPortTo(TOP_SWITCH_PORT, false);
 		
 		resetTest();
 		climber.updateSpeed(new double[] {0, 4, 0});
