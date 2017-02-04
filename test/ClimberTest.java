@@ -22,8 +22,9 @@ public class ClimberTest extends RobotTest {
 	
 	@Test
 	public void testUpdateSpeed() {
-		Climber climber  = new Climber(CLIMBER_PORT, TOP_SWITCH_PORT);
+		Climber climber = new Climber(CLIMBER_PORT, TOP_SWITCH_PORT);
 		
+		setDigitalInputOnPortTo(TOP_SWITCH_PORT, true);
 		
 		resetTest();
 		climber.updateSpeed(new double[] {0, 4, 0});
@@ -40,12 +41,8 @@ public class ClimberTest extends RobotTest {
 		
 		setDigitalInputOnPortTo(TOP_SWITCH_PORT, false);
 		Assert.assertEquals(climber.atTop(), false);
-		setDigitalInputOnPortTo(TOP_SWITCH_PORT, true);
-		Assert.assertEquals(climber.atTop(), true);
 		
-	}
-	
+		setDigitalInputOnPortTo(TOP_SWITCH_PORT, true);
+		Assert.assertEquals(climber.atTop(), true);	
+	}	
 }
-
-	
-
