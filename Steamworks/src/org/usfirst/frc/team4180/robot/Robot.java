@@ -3,6 +3,11 @@ package org.usfirst.frc.team4180.robot;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.BuiltInAccelerometer;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
+
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -30,7 +35,10 @@ public class Robot extends IterativeRobot {
 	private Ramp ramp;
 	private Thread cameraThread;
 	
+	private Autonomous auto;
+	
 	public void robotInit() {
+<<<<<<< HEAD
 		try {
 			PropertyReader propertyReader = new PropertyReader("ports.properties");
 			
@@ -51,8 +59,28 @@ public class Robot extends IterativeRobot {
 			throw new IllegalStateException("Error while parsing port" + e);
 		}
 		
+=======
+
+		ramp = new Ramp(RAMP_PORT, UP_SWITCH_PORT, DOWN_SWITCH_PORT, LEFT_CHECK_PORT, RIGHT_CHECK_PORT);
+		driveTrain = new DriveTrain(LEFT_DRIVETRAIN_PORT, RIGHT_DRIVETRAIN_PORT);
+		climber = new Climber(CLIMBER_PORT, TOP_SWITCH_PORT);
+
+		drivingJoystick = new LambdaJoystick(DRIVING_JOYSTICK_PORT, driveTrain::updateSpeed);
+
+		drivingJoystick.addButton(6, driveTrain::toggleBackwards, () -> {});
+		drivingJoystick.addButton(1, ramp::up, ramp::stop);
+		drivingJoystick.addButton(3, ramp::down, ramp::stop); 
+
+		climbingJoystick = new LambdaJoystick(CLIMBING_JOYSTICK_PORT, climber::updateSpeed);
+>>>>>>> 085da4baf669579cb5e7edfbef0ba79379a45b19
 		
-		//here
+		
+		//autonomous stuff
+		SmartDashboard.putString("DB/String 0", "Autonomous Mode (1-3) ------->");
+		SmartDashboard.putString("DB/String 5", "1");
+		
+		auto = new Autonomous(new BuiltInAccelerometer(), new AnalogGyro(0));
+		
 		
 		cameraThread = new Thread(this::thread);
     	cameraThread.start();
@@ -88,9 +116,11 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void autonomousInit() {
+		auto.Start();
 	}
 
 	public void autonomousPeriodic() {
+		auto.Periodic();
 	}
 
 	public void teleopPeriodic() {
