@@ -38,7 +38,6 @@ public class Robot extends IterativeRobot {
 	private Autonomous auto;
 	
 	public void robotInit() {
-<<<<<<< HEAD
 		try {
 			PropertyReader propertyReader = new PropertyReader("ports.properties");
 			
@@ -58,21 +57,6 @@ public class Robot extends IterativeRobot {
 		} catch (IllegalArgumentException e) {
 			throw new IllegalStateException("Error while parsing port" + e);
 		}
-		
-=======
-
-		ramp = new Ramp(RAMP_PORT, UP_SWITCH_PORT, DOWN_SWITCH_PORT, LEFT_CHECK_PORT, RIGHT_CHECK_PORT);
-		driveTrain = new DriveTrain(LEFT_DRIVETRAIN_PORT, RIGHT_DRIVETRAIN_PORT);
-		climber = new Climber(CLIMBER_PORT, TOP_SWITCH_PORT);
-
-		drivingJoystick = new LambdaJoystick(DRIVING_JOYSTICK_PORT, driveTrain::updateSpeed);
-
-		drivingJoystick.addButton(6, driveTrain::toggleBackwards, () -> {});
-		drivingJoystick.addButton(1, ramp::up, ramp::stop);
-		drivingJoystick.addButton(3, ramp::down, ramp::stop); 
-
-		climbingJoystick = new LambdaJoystick(CLIMBING_JOYSTICK_PORT, climber::updateSpeed);
->>>>>>> 085da4baf669579cb5e7edfbef0ba79379a45b19
 		
 		
 		//autonomous stuff
