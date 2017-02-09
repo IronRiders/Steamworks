@@ -71,8 +71,11 @@ public class Robot extends IterativeRobot {
 
 		
 		//autonomous stuff
-		SmartDashboard.putString("DB/String 0", "Autonomous Mode (1-3) ------->");
-		SmartDashboard.putString("DB/String 5", "1");
+		SmartDashboard.putString("DB/String 0", "Starting Spot (1-3) ------->");
+		SmartDashboard.putString("DB/String 5", "2");
+		
+		SmartDashboard.putString("DB/String 1", "Target (1-3) ------->");
+		SmartDashboard.putString("DB/String 6", "2");
 		
 		auto = new Autonomous(new BuiltInAccelerometer(), new AnalogGyro(0));
 		
