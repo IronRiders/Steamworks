@@ -60,5 +60,13 @@ public class Ramp {
 	public Spark getSpark(){
 		return RampSpark;
 	}
-
-}
+	public double getIdealSpeed(){
+		return idealSpeed;
+	}
+	public boolean upSwitchCheck() {
+		return upSwitch.get();
+	}
+	public boolean downSwitchCheck() {
+		return downSwitch.get();
+	}
+	}

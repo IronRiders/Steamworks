@@ -64,15 +64,18 @@ public class Robot extends IterativeRobot {
 		drivingJoystick = new LambdaJoystick(DRIVING_JOYSTICK_PORT, driveTrain::updateSpeed);
 
 		drivingJoystick.addButton(6, driveTrain::toggleBackwards, () -> {});
-		drivingJoystick.addButton(1, ramp::up, ramp::stop);
-		drivingJoystick.addButton(3, ramp::down, ramp::stop); 
+		drivingJoystick.addButton(1, () -> ramp.up(), () -> ramp.stop());
+		drivingJoystick.addButton(3, () -> ramp.down(), () -> ramp.stop()); 
 
 		climbingJoystick = new LambdaJoystick(CLIMBING_JOYSTICK_PORT, climber::updateSpeed);
-		
+
 		
 		//autonomous stuff
-		SmartDashboard.putString("DB/String 0", "Autonomous Mode (1-3) ------->");
-		SmartDashboard.putString("DB/String 5", "1");
+		SmartDashboard.putString("DB/String 0", "Starting Spot (1-3) ------->");
+		SmartDashboard.putString("DB/String 5", "2");
+		
+		SmartDashboard.putString("DB/String 1", "Target (1-3) ------->");
+		SmartDashboard.putString("DB/String 6", "2");
 		
 		auto = new Autonomous(new BuiltInAccelerometer(), new AnalogGyro(0));
 		
