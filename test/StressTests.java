@@ -31,11 +31,26 @@ public class StressTests {
 			Thread.sleep(seconds/6 * 1000);
 			drivetrain.updateSpeed(new double [] {1.0 ,0.0, 0.0});
 			Thread.sleep(seconds/6 * 1000);
-			drivetrain.updateSpeed(new double [] {-1.0, 0.0 ,0.0});	
+			drivetrain.updateSpeed(new double [] {-1.0, 0.0 ,0.0});			
+		}
+	}	
+
+	public void driveTrainCircleTest(int seconds) throws InterruptedException{
+		while((int)timer.get()< seconds){
+			DriveTrain drivetrain = new DriveTrain(Robot.LEFT_DRIVETRAIN_PORT, Robot.RIGHT_DRIVETRAIN_PORT, Robot.SHIFTING_PORT_1 , Robot.SHIFTING_PORT_2);
+			drivetrain.updateSpeed(new double[]{-1.0,1.0,0.0});
+			Thread.sleep(seconds/6 * 1000);
+			drivetrain.updateSpeed(new double [] {1.0, -1.0, 0.0});
+			Thread.sleep(seconds/6 * 1000);
+			drivetrain.updateSpeed(new double [] {0.5 ,-0.5, 0.0});
+			Thread.sleep(seconds/6 * 1000);
+			drivetrain.updateSpeed(new double [] {-0.5, 0.5 ,0.0});			
+		}
 		
-	};
-}
-	
-	
+		
 	}
+
+	
+	
+}
 
