@@ -24,10 +24,34 @@ public class ImageRecognition
 	
 	private Thread thread;
 	
+	private class ContourData
+	{
+		public Rect boudingRect;
+		
+		public double x;
+		public double y;
+		public double width;
+		public double height;
+		public double area;
+	}
+	
 	public void ImageRecognition()
 	{
 		thread = new Thread(this::cameraThread);
 		thread.start();
+	}
+	
+	public double getContourData(MatOfPoint contour)
+	{
+		double minX, maxX, minY, maxY;
+		minX = minY = Double.MAX_VALUE;
+		maxX = maxY = Double.MIN_VALUE;
+		
+		Point[] points = contour.toArray();
+		
+		for (int i = 0; i < points.length; ++i) {
+			//if (points[i]
+		}
 	}
 	
 	public double calculateAngleToTarget(ArrayList<MatOfPoint> list)
@@ -41,6 +65,9 @@ public class ImageRecognition
 		for (int i = 0; i < list.size(); ++i) {
 			rects.add(Imgproc.boundingRect(list.get(i)));
 		}
+		
+		list.get(0).toArray()
+		
 		
 		Collections.sort(rects, (r0, r1) -> ((Integer)r0.x).compareTo((Integer)r1.x));
 		
