@@ -35,6 +35,7 @@ public class Robot extends IterativeRobot {
 	public static final int RIGHT_DRIVETRAIN_PORT = 1;
 	public static final int CLIMBER_PORT = 3;
 	public static final int RAMP_PORT = 2;
+	public static final int RAMP_PORT2 = 3;
 	
 	public static final int SHIFTING_PORT_1 = 4;
 	public static final int SHIFTING_PORT_2 = 5;
@@ -56,14 +57,14 @@ public class Robot extends IterativeRobot {
 	
 	public void robotInit() {
 
-		ramp = new Ramp(RAMP_PORT);
+		ramp = new Ramp(RAMP_PORT, RAMP_PORT2);
 		driveTrain = new DriveTrain(LEFT_DRIVETRAIN_PORT, RIGHT_DRIVETRAIN_PORT, SHIFTING_PORT_1, SHIFTING_PORT_2);
 		climber = new Climber(CLIMBER_PORT, TOP_SWITCH_PORT);
 
 		drivingJoystick = new LambdaJoystick(DRIVING_JOYSTICK_PORT, driveTrain::updateSpeed);
 
 		drivingJoystick.addButton(6, driveTrain::toggleBackwards, () -> {});
-		drivingJoystick.addButton(1, () -> ramp.setState(true), () -> ramp.setState(false));
+		drivingJoystick.addButton(1, ramp::toggleRamp, () -> {});
 		drivingJoystick.addButton(2, () -> driveTrain.toggleGearShifting(), () -> {});
 
 		climbingJoystick = new LambdaJoystick(CLIMBING_JOYSTICK_PORT, climber::updateSpeed);

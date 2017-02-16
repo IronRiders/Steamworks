@@ -35,14 +35,27 @@ public class ImageRecognition
 		public double area;
 	}
 	
-	public void ImageRecognition()
+	private class Pair<A, B>
+	{
+		public Pair(A a, B b) {
+			this.a = a;
+			this.b = b;	
+		}
+		
+		public A a;
+		public B b;
+	}
+	
+	public ImageRecognition()
 	{
 		thread = new Thread(this::cameraThread);
 		thread.start();
 	}
 	
-	public double getContourData(MatOfPoint contour)
+	public ContourData getContourData(MatOfPoint contour)
 	{
+		ContourData contourData = new ContourData();
+		
 		double minX, maxX, minY, maxY;
 		minX = minY = Double.MAX_VALUE;
 		maxX = maxY = Double.MIN_VALUE;
@@ -50,31 +63,30 @@ public class ImageRecognition
 		Point[] points = contour.toArray();
 		
 		for (int i = 0; i < points.length; ++i) {
-			//if (points[i]
+			minX = Math.min(minX, points[i].x);
+			minY = Math.min(minY, points[i].y);
+			maxX = Math.max(maxX, points[i].x);
+			maxY = Math.max(maxY, points[i].y);
 		}
+		
+		contourData.boudingRect = Imgproc.boundingRect(contour);
+		contourData.x = minX;
+		contourData.y = minY;
+		contourData.width = maxX - minX;
+		contourData.height = maxY - minY;
+		contourData.area = Imgproc.contourArea(contour);
+		
+		return contourData;
 	}
 	
-	public double calculateAngleToTarget(ArrayList<MatOfPoint> list)
-	{
-		if (list.size() != 2) {
-			return Double.NaN;
-		}
+//	public double calculateAngleToTarget(ArrayList<MatOfPoint> list)
+//	{
+//		if (list.size() != 2) {
+//			return Double.NaN;
+//		}
 		
-		ArrayList<Rect> rects = new ArrayList<Rect>();
-		
-		for (int i = 0; i < list.size(); ++i) {
-			rects.add(Imgproc.boundingRect(list.get(i)));
-		}
-		
-		list.get(0).toArray()
-		
-		
-		Collections.sort(rects, (r0, r1) -> ((Integer)r0.x).compareTo((Integer)r1.x));
-		
-		int xCenter = (rects.get(0).x + rects.get(0).width) + (rects.get(1).x - rects.get(1).width) / 2;
-		
-		double angle = (xCenter - CAMERA_WIDTH / 2) * HORIZONTAL_FOV / CAMERA_WIDTH;
-	}
+	//	ArrayList<Pair<>>
+//	}
 	
 	public void cameraThread()
 	{
