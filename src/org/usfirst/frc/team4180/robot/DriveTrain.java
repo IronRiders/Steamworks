@@ -1,14 +1,19 @@
 package org.usfirst.frc.team4180.robot;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.VictorSP;
 
 public class DriveTrain {
 	private VictorSP leftVictor, rightVictor;
-	private boolean backwards = false; 
+	private boolean backwards = false;
+	private DoubleSolenoid gearShifting;
+	
+	private boolean state = false;
 
-	public DriveTrain(int leftPort, int rightPort) {
+	public DriveTrain(int leftPort, int rightPort, int gearShiftPort1, int gearShiftPort2) {
 		leftVictor = new VictorSP(leftPort); 
 		rightVictor = new VictorSP(rightPort);
+		gearShifting = new DoubleSolenoid(gearShiftPort1, gearShiftPort2);
 	}
 
 	// This method takes the position of the joystick, and moves the robot accordingly.
@@ -21,6 +26,17 @@ public class DriveTrain {
 		} else {
 			leftVictor.set(y - x); 								
 			rightVictor.set(-y - x); 
+		}
+	}
+	
+	public void toggleGearShifting() {
+		state = !state;
+		if (state) {
+			gearShifting.set(DoubleSolenoid.Value.kReverse);
+		} else {
+			gearShifting.set(DoubleSolenoid.Value.kForward);
+
+			//kForward is port 0 --> low gear/high torque
 		}
 	}
 
