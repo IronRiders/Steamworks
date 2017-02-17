@@ -1,9 +1,8 @@
 package org.usfirst.frc.team4180.robot;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Ramp {
 
@@ -18,9 +17,11 @@ public class Ramp {
 		state = !state;
 		if(state){
 			rampSolenoid.set(DoubleSolenoid.Value.kForward);
+			SmartDashboard.putString("DB/String 6", "kFOrward");
 		}
 		else {
 			rampSolenoid.set(DoubleSolenoid.Value.kReverse);
+			SmartDashboard.putString("DB/String 6", "kRev");
 		}
 	}
 }

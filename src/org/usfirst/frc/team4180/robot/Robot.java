@@ -33,12 +33,12 @@ public class Robot extends IterativeRobot {
 	// PWM Port Constants
 	public static final int LEFT_DRIVETRAIN_PORT = 0;
 	public static final int RIGHT_DRIVETRAIN_PORT = 1;
-	public static final int CLIMBER_PORT = 3;
-	public static final int RAMP_PORT = 2;
-	public static final int RAMP_PORT2 = 3;
+	public static final int CLIMBER_PORT = 5;
+	public static final int RAMP_PORT = 3;
+	public static final int RAMP_PORT2 = 2;
 	
-	public static final int SHIFTING_PORT_1 = 4;
-	public static final int SHIFTING_PORT_2 = 5;
+	public static final int SHIFTING_PORT_1 = 0;
+	public static final int SHIFTING_PORT_2 = 1;
 	
 	// Analog Ports
 	
@@ -52,6 +52,7 @@ public class Robot extends IterativeRobot {
 	private LambdaJoystick climbingJoystick;
 	private Ramp ramp;
 	private Thread cameraThread;
+	private KinematicLocator locationSensor;
 	
 	private Autonomous auto;
 	
@@ -60,7 +61,8 @@ public class Robot extends IterativeRobot {
 		ramp = new Ramp(RAMP_PORT, RAMP_PORT2);
 		driveTrain = new DriveTrain(LEFT_DRIVETRAIN_PORT, RIGHT_DRIVETRAIN_PORT, SHIFTING_PORT_1, SHIFTING_PORT_2);
 		climber = new Climber(CLIMBER_PORT, TOP_SWITCH_PORT);
-
+		locationSensor = new KinematicLocator();
+		
 		drivingJoystick = new LambdaJoystick(DRIVING_JOYSTICK_PORT, driveTrain::updateSpeed);
 
 		drivingJoystick.addButton(6, driveTrain::toggleBackwards, () -> {});
