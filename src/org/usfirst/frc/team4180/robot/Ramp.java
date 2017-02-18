@@ -17,11 +17,16 @@ public class Ramp {
 		state = !state;
 		if(state){
 			rampSolenoid.set(DoubleSolenoid.Value.kForward);
-			SmartDashboard.putString("DB/String 6", "kFOrward");
+			SmartDashboard.putString("DB/String 6", "kForward");
 		}
 		else {
 			rampSolenoid.set(DoubleSolenoid.Value.kReverse);
 			SmartDashboard.putString("DB/String 6", "kRev");
 		}
 	}
+	public void rampOff(){
+		rampSolenoid.set(DoubleSolenoid.Value.kOff);
+		SmartDashboard.putString("DB/String 6", "kOff");
+	}
+	
 }

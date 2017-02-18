@@ -34,23 +34,24 @@ public class Robot extends IterativeRobot {
 	public static final int LEFT_DRIVETRAIN_PORT = 0;
 	public static final int RIGHT_DRIVETRAIN_PORT = 1;
 	public static final int CLIMBER_PORT = 5;
-	public static final int RAMP_PORT = 3;
-	public static final int RAMP_PORT2 = 2;
-	
+
+	//Phneumatics ports
 	public static final int SHIFTING_PORT_1 = 0;
 	public static final int SHIFTING_PORT_2 = 1;
-	
-	// Analog Ports
+	public static final int RAMP_PORT = 3;
+	public static final int RAMP_PORT2 = 2;
 	
 	// Joystick Port Constants
 	public static final int DRIVING_JOYSTICK_PORT = 0;
 	public static final int CLIMBING_JOYSTICK_PORT = 1;
 	
-	private DriveTrain driveTrain;
-	private LambdaJoystick drivingJoystick;
-	private Climber climber;
 	private LambdaJoystick climbingJoystick;
+	private LambdaJoystick drivingJoystick;
+	
+	private DriveTrain driveTrain;
+	private Climber climber;
 	private Ramp ramp;
+	
 	private Thread cameraThread;
 	private KinematicLocator locationSensor;
 	
@@ -64,27 +65,14 @@ public class Robot extends IterativeRobot {
 		locationSensor = new KinematicLocator();
 		
 		drivingJoystick = new LambdaJoystick(DRIVING_JOYSTICK_PORT, driveTrain::updateSpeed);
-
-		drivingJoystick.addButton(6, driveTrain::toggleBackwards, () -> {});
-		drivingJoystick.addButton(1, ramp::toggleRamp, () -> {});
+		drivingJoystick.addButton(3, ramp::rampOff, () -> {});
 		drivingJoystick.addButton(2, () -> driveTrain.toggleGearShifting(), () -> {});
-
+		drivingJoystick.addButton(1, ramp::toggleRamp, () -> {});
+		
 		climbingJoystick = new LambdaJoystick(CLIMBING_JOYSTICK_PORT, climber::updateSpeed);
-
-		
-		//autonomous stuff
-		SmartDashboard.putString("DB/String 0", "Starting Spot (1-3) ------->");
-		SmartDashboard.putString("DB/String 5", "2");
-		
-		SmartDashboard.putString("DB/String 1", "Target (1-3) ------->");
-		SmartDashboard.putString("DB/String 6", "2");
-		
-		auto = new Autonomous(new BuiltInAccelerometer(), new AnalogGyro(0));
-		
 		
 		cameraThread = new Thread(this::thread);
     	cameraThread.start();
-    	
     	
 	}
 	
@@ -126,8 +114,5 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		climbingJoystick.listen();
 		drivingJoystick.listen();
-	}
-
-	public void testPeriodic() {
 	}
 }
