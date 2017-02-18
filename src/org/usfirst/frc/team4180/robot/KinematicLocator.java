@@ -18,15 +18,16 @@ public class KinematicLocator {
  double x,y;
  double xError, yError;
  Thread locationThread;
+ 
  public KinematicLocator() {
 	accelerometer = new BuiltInAccelerometer();
 	gyro = new ADXRS450_Gyro();
 	gyro.calibrate();
 	lastTime = 0;
-	vx =0;
-	vy =0;
-	x=0;
-	y=0; 
+	vx = 0;
+	vy = 0;
+	x = 0;
+	y = 0; 
 	locationThread = new Thread(this::thread);
    	locationThread.start(); 	
 }
@@ -72,13 +73,6 @@ public class KinematicLocator {
 	 x += vx * dt;
 	 y += vy * dt;
 	 lastTime = currentTime;
-	 SmartDashboard.putString("DB/String 5", "Y = "+y);
-	 SmartDashboard.putString("DB/String 6", "X = "+x);
-	 SmartDashboard.putString("DB/String 0", "dt = "+dt);
-	 SmartDashboard.putString("DB/String 1", "YE = "+yError);
-	 SmartDashboard.putString("DB/String 2", "XE = "+xError);
-	 SmartDashboard.putString("DB/String 3", "VY = "+vy);
-	 SmartDashboard.putString("DB/String 4", "VX = "+vx);
  }
  
  public static double round(double n, int places){
@@ -89,8 +83,19 @@ public class KinematicLocator {
  public double getX(){
 	 return x;
  }
+ 
  public double getY(){
 	 return y;
  }
 
+ public double getAngle() {
+	 return gyro.getAngle();
+ }
+ public double getXAcceleration(){
+	 return round(accelerometer.getX()-xError,2)*9.8;
+ }
+ public double getYAcceleration() {
+	 return round(accelerometer.getY()-yError,2)*9.8;
+ }
+ 
 }
