@@ -13,9 +13,9 @@ public class PortsJNI extends JNIWrapper {
 
   public static int getNumAnalogTriggers() { return 0; }
 
-  public static int getNumAnalogInputs() { return 0; }
+  public static int getNumAnalogInputs() { return 4; } //Todo: Check this number
 
-  public static int getNumAnalogOutputs() { return 0; }
+  public static int getNumAnalogOutputs() { return 4; } //Todo: Check this number
 
   public static int getNumCounters() { return 0; }
 
@@ -33,15 +33,15 @@ public class PortsJNI extends JNIWrapper {
 
   public static int getNumInterrupts() { return 0; }
 
-  public static int getNumRelayChannels() { return 0; }
+  public static int getNumRelayChannels() { return 4; } //Todo: Check this number
 
   public static int getNumRelayHeaders() { return 0; }
 
   public static int getNumPCMModules() { return 0; }
 
-  public static int getNumSolenoidChannels() { return 0; }
+  public static int getNumSolenoidChannels() { return 8; }
 
-  public static int getNumPDPModules() { return 0; }
+  public static int getNumPDPModules() { return 4; } //Todo: Check this number
 
-  public static int getNumPDPChannels() { return 0; }
+  public static int getNumPDPChannels() { return 4; } //Todo: Check this number
 }

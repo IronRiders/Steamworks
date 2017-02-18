@@ -25,7 +25,7 @@ public class DriveTrainTest extends RobotTest {
 	@Test
 	public void callUpdateSpeed(){
 		testUpdateSpeed(false);
-	//	testUpdateSpeed(true);
+		testUpdateSpeed(true);
 	}
 	
 	public void testUpdateSpeed(boolean backwards) {
@@ -57,8 +57,8 @@ public class DriveTrainTest extends RobotTest {
 			
 			double leftSpeed = drivetrain.getLeftVictor().getSpeed();
 			double rightSpeed = drivetrain.getRightVictor().getSpeed();
-			double expectedRightSpeed = backwards ? output[0] : output[0];
-			double expectedLeftSpeed = backwards ? output[1] : output[1];
+			double expectedRightSpeed = backwards ? output[1]*-1 : output[1];
+			double expectedLeftSpeed = backwards ? output[0]*-1 : output[0];
 			
 			System.out.printf(
 					"Backwards? %s Input: %s, Expected: %s %s, got: %s %s\n",
