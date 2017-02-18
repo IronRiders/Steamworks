@@ -4,9 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SolenoidJNI extends JNIWrapper {
-	protected static Map<Integer, Boolean> solenoidValue = new HashMap<Integer, Boolean>();
+	protected static Map<Integer, Boolean> solenoidValue = new HashMap<>();
 	
     public static int initializeSolenoidPort(int halPortHandle) {
+    	solenoidValue.put(halPortHandle, false);
 		return halPortHandle;
 	}
 
@@ -15,7 +16,7 @@ public class SolenoidJNI extends JNIWrapper {
 	}
 
     public static boolean checkSolenoidChannel(int channel) {
-    	return (channel > 0 && channel <= PortsJNI.getNumSolenoidChannels());
+    	return (channel >= 0 && channel < PortsJNI.getNumSolenoidChannels());
 	}
 
     public static void freeSolenoidPort(int portHandle) {
@@ -27,7 +28,7 @@ public class SolenoidJNI extends JNIWrapper {
 	}
 
     public static boolean getSolenoid(int portHandle) {
-		return solenoidValue.get(portHandle);
+    	return solenoidValue.getOrDefault(portHandle, false);
 	}
 
     public static byte getAllSolenoids(byte module) {
