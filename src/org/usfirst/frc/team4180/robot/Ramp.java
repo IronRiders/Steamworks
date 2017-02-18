@@ -13,12 +13,6 @@ public class Ramp {
 		rampSolenoid = new DoubleSolenoid(solenoidPort1, solenoidPort2);
 		rampSolenoid.set(Value.kReverse);
 	}
-
-	public void toggleRamp(){
-		state = !state;
-		if(state){
-			rampSolenoid.set(DoubleSolenoid.Value.kForward);
-			SmartDashboard.putString("DB/String 6", "kForward");
 	
 	public void toggleRamp() {
 		if(rampSolenoid.get() == Value.kReverse) {
@@ -38,9 +32,4 @@ public class Ramp {
 	public void set(Value newValue) {
 		rampSolenoid.set(newValue);
 	}
-	public void rampOff(){
-		rampSolenoid.set(DoubleSolenoid.Value.kOff);
-		SmartDashboard.putString("DB/String 6", "kOff");
-	}
-	
 }

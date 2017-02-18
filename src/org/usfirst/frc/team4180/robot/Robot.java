@@ -65,7 +65,6 @@ public class Robot extends IterativeRobot {
 		locationSensor = new KinematicLocator();
 		
 		drivingJoystick = new LambdaJoystick(DRIVING_JOYSTICK_PORT, driveTrain::updateSpeed);
-		drivingJoystick.addButton(3, ramp::rampOff, () -> {});
 		drivingJoystick.addButton(2, () -> driveTrain.toggleGearShifting(), () -> {});
 		drivingJoystick.addButton(1, ramp::toggleRamp, () -> {});
 		
