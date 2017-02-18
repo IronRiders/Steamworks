@@ -1,47 +1,29 @@
 package org.usfirst.frc.team4180.robot;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Solenoid;
-<<<<<<< Upstream, based on origin/master
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-=======
-import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
->>>>>>> ab465cc Fixed Solenoid mocker
+import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Ramp {
 
 	private DoubleSolenoid rampSolenoid;
 	
-	public Ramp(int solenoidPort1, int solenoidPor2) {
-		rampSolenoid = new DoubleSolenoid(solenoidPort1, solenoidPor2);
+	public Ramp(int solenoidPort1, int solenoidPort2) {
+		rampSolenoid = new DoubleSolenoid(solenoidPort1, solenoidPort2);
 		rampSolenoid.set(Value.kReverse);
 	}
-
-<<<<<<< Upstream, based on origin/master
-	public void toggleRamp(){
-		state = !state;
-		if(state){
-			rampSolenoid.set(DoubleSolenoid.Value.kForward);
-			SmartDashboard.putString("DB/String 6", "kFOrward");
-=======
+	
 	public void toggleRamp() {
 		if(rampSolenoid.get() == Value.kReverse) {
 			rampSolenoid.set(Value.kForward);
->>>>>>> ab465cc Fixed Solenoid mocker
+			SmartDashboard.putString("DB/String 6", "kForward");
 		}
 		else {
-<<<<<<< Upstream, based on origin/master
-			rampSolenoid.set(DoubleSolenoid.Value.kReverse);
-			SmartDashboard.putString("DB/String 6", "kRev");
-=======
 			rampSolenoid.set(Value.kReverse);
->>>>>>> ab465cc Fixed Solenoid mocker
+			SmartDashboard.putString("DB/String 6", "kRev");
 		}
 	}
-<<<<<<< Upstream, based on origin/master
-}
-=======
 	
 	public Value get() {
 		return rampSolenoid.get();
@@ -51,4 +33,3 @@ public class Ramp {
 		rampSolenoid.set(newValue);
 	}
 }
->>>>>>> ab465cc Fixed Solenoid mocker
