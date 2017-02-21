@@ -30,15 +30,18 @@ public class DriveTrain {
 	}
 	
 	public void toggleGearShifting() {
-		state = !state;
+		setGear(!state);
+	}
+	
+	public void setGear(boolean b){
+		state = b;
 		if (state) {
 			gearShifting.set(DoubleSolenoid.Value.kReverse);
 		} else {
 			gearShifting.set(DoubleSolenoid.Value.kForward);
-
-			//kForward is port 0 --> low gear/high torque
 		}
 	}
+	
 
 	public void toggleBackwards() {
 		backwards = !backwards; 

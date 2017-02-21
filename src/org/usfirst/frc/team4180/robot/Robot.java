@@ -60,6 +60,7 @@ public class Robot extends IterativeRobot {
 	private DriverStation driverStation;
 	
 	private Autonomous auto;
+	Timer timer ;
 	
 	public void robotInit() {
 
@@ -77,6 +78,8 @@ public class Robot extends IterativeRobot {
 		
 		cameraThread = new Thread(this::thread);
     	cameraThread.start();
+    	
+    	timer = new Timer();
     	
 	}
 	
@@ -110,7 +113,7 @@ public class Robot extends IterativeRobot {
 	
 	@Override
 	public void autonomousInit(){
-		auto = new Autonomous(locationSensor);
+		auto = new Autonomous(locationSensor, driveTrain, ramp);
 	}
 	
 	@Override
@@ -122,5 +125,5 @@ public class Robot extends IterativeRobot {
 		
 		climbingJoystick.listen();
 		drivingJoystick.listen();
-	}
+	}	
 }
