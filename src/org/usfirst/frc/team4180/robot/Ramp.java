@@ -17,11 +17,9 @@ public class Ramp {
 	public void toggleRamp() {
 		if(rampSolenoid.get() == Value.kReverse) {
 			rampSolenoid.set(Value.kForward);
-			SmartDashboard.putString("DB/String 6", "kForward");
 		}
 		else {
 			rampSolenoid.set(Value.kReverse);
-			SmartDashboard.putString("DB/String 6", "kRev");
 		}
 	}
 	

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 import org.opencv.core.Core;
@@ -18,6 +20,7 @@ import org.opencv.imgproc.Imgproc;
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.AxisCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -54,6 +57,7 @@ public class Robot extends IterativeRobot {
 	
 	private Thread cameraThread;
 	private KinematicLocator locationSensor;
+	private DriverStation driverStation;
 	
 	private Autonomous auto;
 	
@@ -66,6 +70,7 @@ public class Robot extends IterativeRobot {
 		
 		drivingJoystick = new LambdaJoystick(DRIVING_JOYSTICK_PORT, driveTrain::updateSpeed);
 		drivingJoystick.addButton(2, () -> driveTrain.toggleGearShifting(), () -> {});
+		drivingJoystick.addButton(3, () -> driveTrain.toggleBackwards(), () -> {});
 		drivingJoystick.addButton(1, ramp::toggleRamp, () -> {});
 		
 		climbingJoystick = new LambdaJoystick(CLIMBING_JOYSTICK_PORT, climber::updateSpeed);
@@ -78,6 +83,7 @@ public class Robot extends IterativeRobot {
 	public void thread()
 	{
         UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        CameraServer.getInstance().addAxisCamera("10.41.80.11");
         camera.setResolution(640, 480);
         
         CvSink cvSink = CameraServer.getInstance().getVideo();
@@ -101,16 +107,19 @@ public class Robot extends IterativeRobot {
             outputStream.putFrame(mat);
         }
 	}
-
-	public void autonomousInit() {
-		auto.Start();
+	
+	@Override
+	public void autonomousInit(){
+		auto = new Autonomous(locationSensor);
 	}
-
+	
+	@Override
 	public void autonomousPeriodic() {
 		auto.Periodic();
 	}
 
 	public void teleopPeriodic() {
+		
 		climbingJoystick.listen();
 		drivingJoystick.listen();
 	}
