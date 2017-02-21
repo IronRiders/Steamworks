@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 import org.opencv.core.Core;
@@ -18,6 +20,7 @@ import org.opencv.imgproc.Imgproc;
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.AxisCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -34,25 +37,27 @@ public class Robot extends IterativeRobot {
 	public static final int LEFT_DRIVETRAIN_PORT = 0;
 	public static final int RIGHT_DRIVETRAIN_PORT = 1;
 	public static final int CLIMBER_PORT = 5;
-	public static final int RAMP_PORT = 3;
-	public static final int RAMP_PORT2 = 2;
-	
+
+	//Phneumatics ports
 	public static final int SHIFTING_PORT_1 = 0;
 	public static final int SHIFTING_PORT_2 = 1;
-	
-	// Analog Ports
+	public static final int RAMP_PORT = 3;
+	public static final int RAMP_PORT2 = 2;
 	
 	// Joystick Port Constants
 	public static final int DRIVING_JOYSTICK_PORT = 0;
 	public static final int CLIMBING_JOYSTICK_PORT = 1;
 	
-	private DriveTrain driveTrain;
-	private LambdaJoystick drivingJoystick;
-	private Climber climber;
 	private LambdaJoystick climbingJoystick;
+	private LambdaJoystick drivingJoystick;
+	
+	private DriveTrain driveTrain;
+	private Climber climber;
 	private Ramp ramp;
+	
 	private Thread cameraThread;
 	private KinematicLocator locationSensor;
+	private DriverStation driverStation;
 	
 	private Autonomous auto;
 	
@@ -64,33 +69,21 @@ public class Robot extends IterativeRobot {
 		locationSensor = new KinematicLocator();
 		
 		drivingJoystick = new LambdaJoystick(DRIVING_JOYSTICK_PORT, driveTrain::updateSpeed);
-
-		drivingJoystick.addButton(6, driveTrain::toggleBackwards, () -> {});
-		drivingJoystick.addButton(1, ramp::toggleRamp, () -> {});
 		drivingJoystick.addButton(2, () -> driveTrain.toggleGearShifting(), () -> {});
-
+		drivingJoystick.addButton(3, () -> driveTrain.toggleBackwards(), () -> {});
+		drivingJoystick.addButton(1, ramp::toggleRamp, () -> {});
+		
 		climbingJoystick = new LambdaJoystick(CLIMBING_JOYSTICK_PORT, climber::updateSpeed);
-
-		
-		//autonomous stuff
-		SmartDashboard.putString("DB/String 0", "Starting Spot (1-3) ------->");
-		SmartDashboard.putString("DB/String 5", "2");
-		
-		SmartDashboard.putString("DB/String 1", "Target (1-3) ------->");
-		SmartDashboard.putString("DB/String 6", "2");
-		
-		auto = new Autonomous(new BuiltInAccelerometer(), new AnalogGyro(0));
-		
 		
 		cameraThread = new Thread(this::thread);
     	cameraThread.start();
-    	
     	
 	}
 	
 	public void thread()
 	{
         UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        CameraServer.getInstance().addAxisCamera("10.41.80.11");
         camera.setResolution(640, 480);
         
         CvSink cvSink = CameraServer.getInstance().getVideo();
@@ -114,20 +107,20 @@ public class Robot extends IterativeRobot {
             outputStream.putFrame(mat);
         }
 	}
-
-	public void autonomousInit() {
-		auto.Start();
+	
+	@Override
+	public void autonomousInit(){
+		auto = new Autonomous(locationSensor);
 	}
-
+	
+	@Override
 	public void autonomousPeriodic() {
 		auto.Periodic();
 	}
 
 	public void teleopPeriodic() {
+		
 		climbingJoystick.listen();
 		drivingJoystick.listen();
-	}
-
-	public void testPeriodic() {
 	}
 }
