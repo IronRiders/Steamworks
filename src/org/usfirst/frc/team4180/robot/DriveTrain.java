@@ -10,7 +10,7 @@ public class DriveTrain {
 	
 	private boolean state = false;
 
-	public DriveTrain(int leftPort, int rightPort, int gearShiftPort1, int gearShiftPort2) {
+	public DriveTrain(int leftPort, int rightPort, int gearShiftPort1, int gearShiftPort2) { //can shift gears
 		leftVictor = new VictorSP(leftPort); 
 		rightVictor = new VictorSP(rightPort);
 		gearShifting = new DoubleSolenoid(gearShiftPort1, gearShiftPort2);
@@ -33,7 +33,7 @@ public class DriveTrain {
 		setGear(!state);
 	}
 	
-	public void setGear(boolean b){
+	public void setGear(boolean b){ //shifts the boolean
 		state = b;
 		if (state) {
 			gearShifting.set(DoubleSolenoid.Value.kReverse);
@@ -42,24 +42,24 @@ public class DriveTrain {
 		}
 	}
 	
-
-	public void toggleBackwards() {
+	//set backwards to notbackwards
+	public void toggleBackwards() { // 
 		backwards = !backwards; 
 	}
 
-	public boolean getBackwards() { 
+	public boolean getBackwards() { //goes back
 		return backwards;
 	}
 
-	public void setBackwards(boolean value) {
+	public void setBackwards(boolean value) { //the boolean goes backwards
 		backwards = value;
 	}
 
-	public VictorSP getLeftVictor() {
+	public VictorSP getLeftVictor() { //when we win it goes left?
 		return leftVictor;
 	}
 
-	public VictorSP getRightVictor() {
+	public VictorSP getRightVictor() { //when we win it goes left?
 		return rightVictor;
 	}
 }
