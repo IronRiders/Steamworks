@@ -32,8 +32,8 @@ public class DriveTrain {
 	public void toggleGearShifting() {
 		setGear(!state);
 	}
-	
-	public void setGear(boolean b){ //shifts the boolean
+	//shifts the boolean
+	public void setGear(boolean b){ 
 		state = b;
 		if (state) {
 			gearShifting.set(DoubleSolenoid.Value.kReverse);
