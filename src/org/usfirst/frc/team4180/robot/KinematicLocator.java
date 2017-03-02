@@ -41,7 +41,7 @@ public class KinematicLocator {
 		 Run();
 	}
  }
- 
+ //calibrate accelerometer
  private void calibrateAccelerometer(){
 	 int reps = 40;
 	 double interval = 0.05;
@@ -55,7 +55,7 @@ public class KinematicLocator {
 	 xError = totalXError / reps;
 	 yError = totalYError / reps;
  }
- 
+ //math
  public void Run(){
 	 double currentTime = t.get();
 	 double dt = currentTime - lastTime;
@@ -74,26 +74,28 @@ public class KinematicLocator {
 	 y += vy * dt;
 	 lastTime = currentTime;
  }
- 
+ //math
  public static double round(double n, int places){
 	 int pow = (int)Math.pow(10, places);
 	 return ((double)Math.round(n*pow))/pow;
  }
- 
+ //return x
  public double getX(){
 	 return x;
  }
- 
+ //return y
  public double getY(){
 	 return y;
  }
-
+ //return gyro.angle
  public double getAngle() {
 	 return gyro.getAngle();
  }
+ //return accelerometer x
  public double getXAcceleration(){
 	 return round(accelerometer.getX()-xError,2)*9.8;
  }
+ //return accelerometer y	
  public double getYAcceleration() {
 	 return round(accelerometer.getY()-yError,2)*9.8;
  }
