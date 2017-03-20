@@ -21,8 +21,8 @@ public class DriveTrain {
 		double x = JoystickInfo[0];
 		double y = JoystickInfo[1];
 		if (backwards) {
-			leftVictor.set(-y + x); 							
-			rightVictor.set(y + x); 
+			leftVictor.set(-y - x); 							
+			rightVictor.set(y - x); 
 		} else {
 			leftVictor.set(y - x); 								
 			rightVictor.set(-y - x); 

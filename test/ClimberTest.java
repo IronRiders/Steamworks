@@ -20,7 +20,7 @@ public class ClimberTest extends RobotTest {
 		Assert.assertEquals(true, drivetrain.getBackwards());
 */
 	
-	@Test
+	/*@Test
 	public void testUpdateSpeed() {
 		Climber climber = new Climber(CLIMBER_PORT, TOP_SWITCH_PORT);
 		
@@ -44,5 +44,5 @@ public class ClimberTest extends RobotTest {
 		
 		setDigitalInputOnPortTo(TOP_SWITCH_PORT, true);
 		Assert.assertEquals(climber.atTop(), true);	
-	}	
+	}*/	
 }
