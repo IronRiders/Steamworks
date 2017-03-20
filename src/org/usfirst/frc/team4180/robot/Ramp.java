@@ -13,7 +13,7 @@ public class Ramp {
 		rampSolenoid = new DoubleSolenoid(solenoidPort1, solenoidPort2);
 		rampSolenoid.set(Value.kReverse);
 	}
-	
+	// switch reverse to forwards and vise versa
 	public void toggleRamp() {
 		if(rampSolenoid.get() == Value.kReverse) {
 			rampSolenoid.set(Value.kForward);
@@ -22,11 +22,11 @@ public class Ramp {
 			rampSolenoid.set(Value.kReverse);
 		}
 	}
-	
+	//sets solenoid for testing
 	public Value get() {
 		return rampSolenoid.get();
 	}
-	
+	//sets new value for rampSolenoid
 	public void set(Value newValue) {
 		rampSolenoid.set(newValue);
 	}
