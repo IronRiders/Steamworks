@@ -17,8 +17,8 @@ public class Autonomous {
 	
 	private static final double WAITING_TIME = 5;
 	private static final double DRIVING_TIME_1 = 2;
-	private static final double DRIVING_TIME_2 = 1.5;
-	private static final double TURNING_TIME = 1;
+	private static final double DRIVING_TIME_2 = 0.9;
+	private static final double TURNING_TIME = 0.75;
 	
 	public Autonomous (KinematicLocator loc, DriveTrain drive, Ramp ramp){
 		previousTime = 0;
@@ -31,7 +31,11 @@ public class Autonomous {
 		this.ramp = ramp;
 		this.ramp.set(DoubleSolenoid.Value.kReverse);
 		String locationStr = SmartDashboard.getString("DB/String 5", "0");
-		startLocation = Integer.parseInt(locationStr);
+		try {
+			startLocation = Integer.parseInt(locationStr);
+		} catch (Exception e) {
+			startLocation = 0;
+		}
 	}
 	
 	public void Periodic(){
@@ -50,7 +54,7 @@ public class Autonomous {
 			
 		case Waiting:
 			SmartDashboard.putString("DB/String 6", "Waiting");
-			changeState(State.Waiting, WAITING_TIME);
+			changeState(State.Driving, WAITING_TIME);
 			break;
 			
 		case Driving:
@@ -65,8 +69,8 @@ public class Autonomous {
 			break;
 			
 		case Turning:
-			SmartDashboard.putString("DB/String 6", "Turning");
-			drive.updateSpeed(new double[]{(startLocation - 2)*0.15, -0.4, 0});
+			SmartDashboard.putString("DB/String 6", "Turning {" +(startLocation - 2)*0.4+", "+ -0.4+ "}");
+			drive.updateSpeed(new double[]{(startLocation - 2)*0.4, -0.75, 0});
 			changeState(State.Done, TURNING_TIME);
 			break;
 		
@@ -78,6 +82,7 @@ public class Autonomous {
 	}
 	
 	private void changeState(State s, double time){
+		SmartDashboard.putString("DB/String 7", Math.round(autoTime.get())+" >= "+Math.round(time+previousTime));
 		if(autoTime.get() >= time + previousTime){
 			state = s;
 			previousTime = autoTime.get();

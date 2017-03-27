@@ -69,17 +69,13 @@ public class Robot extends IterativeRobot {
 		climber = new Climber(CLIMBER_PORT);
 		locationSensor = new KinematicLocator();
 		
-		drivingJoystick = new LambdaJoystick(DRIVING_JOYSTICK_PORT,(double[] Joy) -> {
-			driveTrain.updateSpeed(Joy);
-			climber.updateSpeed(Joy[2]);
-		});
+		drivingJoystick = new LambdaJoystick(DRIVING_JOYSTICK_PORT, driveTrain::updateSpeed);
 		drivingJoystick.addButton(2, () -> driveTrain.toggleGearShifting(),() -> {});
 		drivingJoystick.addButton(3, () -> driveTrain.toggleBackwards(),() -> {});
 		drivingJoystick.addButton(1, ramp::toggleRamp, () -> {});
 		
-		climbingJoystick = new LambdaJoystick(CLIMBING_JOYSTICK_PORT, (double[] Joy) -> {});
+		climbingJoystick = new LambdaJoystick(CLIMBING_JOYSTICK_PORT, climber::acceptJoystickData);
 		climbingJoystick.addButton(1, ramp::toggleRamp, () -> {});
-		
 		
 		
 		cameraThread = new Thread(this::thread);

@@ -2,6 +2,7 @@ package org.usfirst.frc.team4180.robot;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrain {
 	private VictorSP leftVictor, rightVictor;
@@ -28,7 +29,7 @@ public class DriveTrain {
 			rightVictor.set(-y - x); 
 		}
 	}
-	
+	 
 	public void toggleGearShifting() {
 		setGear(!state);
 	}
@@ -36,8 +37,11 @@ public class DriveTrain {
 	public void setGear(boolean b){ 
 		state = b;
 		if (state) {
+			SmartDashboard.putString("DB/String 8", "Fast");
 			gearShifting.set(DoubleSolenoid.Value.kReverse);
+			
 		} else {
+			SmartDashboard.putString("DB/String 8", "Slow");
 			gearShifting.set(DoubleSolenoid.Value.kForward);
 		}
 	}
@@ -62,4 +66,6 @@ public class DriveTrain {
 	public VictorSP getRightVictor() { //when we win it goes left?
 		return rightVictor;
 	}
+	
+
 }
