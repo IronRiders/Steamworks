@@ -5,14 +5,12 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class Autonomous {
-	KinematicLocator location;
 	State state;
 	Timer autoTime;
 	DriveTrain drive;
 	Ramp ramp;
 	
-	double previousTime;
-	
+	double previousTime;	
 	int startLocation;
 	
 	private static final double WAITING_TIME = 5;
@@ -20,9 +18,8 @@ public class Autonomous {
 	private static final double DRIVING_TIME_2 = 0.9;
 	private static final double TURNING_TIME = 0.75;
 	
-	public Autonomous (KinematicLocator loc, DriveTrain drive, Ramp ramp){
+	public Autonomous (DriveTrain drive, Ramp ramp){
 		previousTime = 0;
-		location = loc;
 		state = State.Beginning;
 		autoTime = new Timer();
 		this.drive = drive;

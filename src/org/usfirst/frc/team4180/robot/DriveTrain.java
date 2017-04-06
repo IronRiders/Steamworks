@@ -33,6 +33,7 @@ public class DriveTrain {
 	public void toggleGearShifting() {
 		setGear(!state);
 	}
+	
 	//shifts the boolean
 	public void setGear(boolean b){ 
 		state = b;
@@ -47,23 +48,27 @@ public class DriveTrain {
 	}
 	
 	//set backwards to notbackwards
-	public void toggleBackwards() { // 
+	public void toggleBackwards() {  
 		backwards = !backwards; 
 	}
-
-	public boolean getBackwards() { //goes back
+	
+	//goes back
+	public boolean getBackwards() { 
 		return backwards;
 	}
-
-	public void setBackwards(boolean value) { //the boolean goes backwards
+	
+	//the boolean goes backwards
+	public void setBackwards(boolean value) { 
 		backwards = value;
 	}
-
-	public VictorSP getLeftVictor() { //when we win it goes left?
+	
+	//when we win it goes left?
+	public VictorSP getLeftVictor() { 
 		return leftVictor;
 	}
-
-	public VictorSP getRightVictor() { //when we win it goes left?
+	
+	//when we win it goes left?
+	public VictorSP getRightVictor() { 
 		return rightVictor;
 	}
 	
