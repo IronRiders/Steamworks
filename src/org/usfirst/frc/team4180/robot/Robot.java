@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 public class Robot extends IterativeRobot {
 
 	// PWM Port Constants
-	public static final int LEFT_DRIVETRAIN_PORT = 0;
-	public static final int RIGHT_DRIVETRAIN_PORT = 1;
+	public static final int LEFT_DRIVE_PORT = 0;
+	public static final int RIGHT_DRIVE_PORT = 1;
 	public static final int CLIMBER_PORT = 2;
 
 	// Phneumatics ports
@@ -18,8 +18,8 @@ public class Robot extends IterativeRobot {
 	public static final int RAMP_PORT2 = 2;
 
 	// Joystick Port Constants
-	public static final int DRIVING_JOYSTICK_PORT = 0;
-	public static final int CLIMBING_JOYSTICK_PORT = 1;
+	private static final int DRIVING_JOYSTICK_PORT = 0;
+	private static final int CLIMBING_JOYSTICK_PORT = 1;
 
 	private LambdaJoystick climbingJoystick;
 	private LambdaJoystick drivingJoystick;
@@ -28,49 +28,44 @@ public class Robot extends IterativeRobot {
 	private Climber climber;
 	private Ramp ramp;
 
-	private DriverStation driverStation;
-
 	private Autonomous auto;
 
+	@Override
 	public void robotInit() {
 
 		ramp = new Ramp(RAMP_PORT, RAMP_PORT2);
-		driveTrain = new DriveTrain(LEFT_DRIVETRAIN_PORT,
-				RIGHT_DRIVETRAIN_PORT, SHIFTING_PORT_1, SHIFTING_PORT_2);
+		driveTrain = new DriveTrain(LEFT_DRIVE_PORT, RIGHT_DRIVE_PORT, SHIFTING_PORT_1, SHIFTING_PORT_2);
 		climber = new Climber(CLIMBER_PORT);
 		
 		drivingJoystick = new LambdaJoystick(DRIVING_JOYSTICK_PORT, driveTrain::updateSpeed);
-		drivingJoystick.addButton(2, () -> driveTrain.toggleGearShifting(),() -> {});
-		drivingJoystick.addButton(3, () -> driveTrain.toggleBackwards(),() -> {});
-		drivingJoystick.addButton(1, ramp::toggleRamp, () -> {});
+		drivingJoystick.addButton(2, driveTrain::toggleGearShifting);
+		drivingJoystick.addButton(3, driveTrain::toggleBackwards);
+		drivingJoystick.addButton(1, ramp::toggleRamp);
 		
 		climbingJoystick = new LambdaJoystick(CLIMBING_JOYSTICK_PORT, climber::acceptJoystickData);
-		climbingJoystick.addButton(1, ramp::toggleRamp, () -> {});
+		climbingJoystick.addButton(1, ramp::toggleRamp);
 		setUpCameras();
 	}
 
-	public void setUpCameras() {
-		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-		CameraServer.getInstance().addAxisCamera("10.41.80.11");
-		//camera.setResolution(640, 480);
-	}
+    private void setUpCameras() {
+        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        CameraServer.getInstance().addAxisCamera("10.41.80.11");
+        //camera.setResolution(640, 480);
+    }
 
-	@Override
-	public void autonomousInit() {
-		 auto = new Autonomous(driveTrain, ramp);
+    @Override
+    public void autonomousInit() {
+        auto = new Autonomous(driveTrain, ramp);
+    }
 
-	}
+    @Override
+    public void autonomousPeriodic() {
+        auto.Periodic();
+    }
 
-	@Override
-	public void autonomousPeriodic() {
-		 auto.Periodic();
-		
-	}
-	
-	@Override
-	public void teleopPeriodic() {
-		drivingJoystick.listen();
-		climbingJoystick.listen();
-	}
-
+    @Override
+    public void teleopPeriodic() {
+        drivingJoystick.listen();
+        climbingJoystick.listen();
+    }
 }
