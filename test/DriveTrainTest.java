@@ -13,7 +13,7 @@ public class DriveTrainTest extends RobotTest {
 
 	@Test
 	public void test() {
-		/*DriveTrain drivetrain = new DriveTrain(Robot.LEFT_DRIVETRAIN_PORT, Robot.RIGHT_DRIVETRAIN_PORT, Robot.SHIFTING_PORT_1 , Robot.SHIFTING_PORT_2);
+		/*DriveTrain drivetrain = new DriveTrain(Robot.LEFT_DRIVE_PORT, Robot.RIGHT_DRIVE_PORT, Robot.SHIFTING_PORT_1 , Robot.SHIFTING_PORT_2);
 		
 		Assert.assertEquals(false, drivetrain.getBackwards());
 		drivetrain.toggleBackwards();
@@ -29,7 +29,7 @@ public class DriveTrainTest extends RobotTest {
 	}
 	
 	public void testUpdateSpeed(boolean backwards) {
-		final DriveTrain drivetrain = new DriveTrain(Robot.LEFT_DRIVETRAIN_PORT, Robot.RIGHT_DRIVETRAIN_PORT, Robot.SHIFTING_PORT_1 , Robot.SHIFTING_PORT_2);
+		final DriveTrain drivetrain = new DriveTrain(Robot.LEFT_DRIVE_PORT, Robot.RIGHT_DRIVE_PORT, Robot.SHIFTING_PORT_1 , Robot.SHIFTING_PORT_2);
 		
 		final double[][] inputs = {
 				{0,0,0}, // not moving
