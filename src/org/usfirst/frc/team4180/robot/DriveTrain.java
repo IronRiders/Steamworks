@@ -51,11 +51,6 @@ public class DriveTrain {
         backwards = !backwards;
     }
 
-    //goes back
-    public boolean getBackwards() {
-        return backwards;
-    }
-
     //the boolean goes backwards
     public void setBackwards(boolean value) {
         backwards = value;
@@ -70,6 +65,4 @@ public class DriveTrain {
     public VictorSP getRightVictor() {
         return rightVictor;
     }
-
-
 }

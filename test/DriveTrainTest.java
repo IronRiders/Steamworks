@@ -53,7 +53,7 @@ public class DriveTrainTest extends RobotTest {
 			double[] output = outputs[i];
 			
 			resetTest();
-			drivetrain.updateSpeed(input); 
+		//	drivetrain.updateSpeed(input);
 			
 			double leftSpeed = drivetrain.getLeftVictor().getSpeed();
 			double rightSpeed = drivetrain.getRightVictor().getSpeed();
