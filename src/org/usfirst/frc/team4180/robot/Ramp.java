@@ -11,22 +11,11 @@ public class Ramp {
         rampSolenoid.set(Value.kReverse);
     }
 
-    // switch reverse to forwards and vise versa
     public void toggleRamp() {
-        if (rampSolenoid.get() == Value.kReverse) {
-            rampSolenoid.set(Value.kForward);
-        } else {
-            rampSolenoid.set(Value.kReverse);
-        }
+        rampSolenoid.set(rampSolenoid.get() == Value.kReverse ? Value.kForward : Value.kReverse);
     }
 
-    //sets solenoid for testing
-    public Value get() {
-        return rampSolenoid.get();
-    }
-
-    //sets new value for rampSolenoid
-    public void set(Value newValue) {
-        rampSolenoid.set(newValue);
+    public void set(Value value) {
+        rampSolenoid.set(value);
     }
 }

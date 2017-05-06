@@ -5,13 +5,13 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class Autonomous {
-    State state;
-    Timer autoTime;
-    DriveTrain drive;
-    Ramp ramp;
+    private State state;
+    private Timer autoTime;
+    private DriveTrain drive;
+    private Ramp ramp;
 
-    double previousTime;
-    int startLocation;
+    private double previousTime;
+    private int startLocation;
 
     private static final double WAITING_TIME = 5;
     private static final double DRIVING_TIME_1 = 2;
@@ -27,34 +27,36 @@ public class Autonomous {
         this.drive.setGear(true);
         this.ramp = ramp;
         this.ramp.set(DoubleSolenoid.Value.kReverse);
+        startLocation = getStartLocation();
+    }
+
+    private int getStartLocation(){
         String locationStr = SmartDashboard.getString("DB/String 5", "0");
+        int startLocation;
         try {
             startLocation = Integer.parseInt(locationStr);
         } catch (Exception e) {
             startLocation = 0;
         }
+        return startLocation;
     }
 
     public void Periodic() {
         switch (state) {
 
             case Beginning:
-                SmartDashboard.putString("DB/String 6", "Beginning");
+                updateSmartDashboard("Beginning");
                 autoTime.start();
-                if (startLocation == 0) {
-                    changeState(State.Done, 0);
-                } else {
-                    changeState(State.Waiting, 0);
-                }
+                changeState(startLocation == 0 ? State.Done : State.Waiting, 0);
                 break;
 
             case Waiting:
-                SmartDashboard.putString("DB/String 6", "Waiting");
+                updateSmartDashboard("Waiting");
                 changeState(State.Driving, WAITING_TIME);
                 break;
 
             case Driving:
-                SmartDashboard.putString("DB/String 6", "Driving");
+                updateSmartDashboard("Driving");
                 drive.updateSpeed(new LambdaJoystick.ThrottlePosition(0, -0.4));
                 if (startLocation == 2) {
                     changeState(State.Done, DRIVING_TIME_1);
@@ -64,16 +66,20 @@ public class Autonomous {
                 break;
 
             case Turning:
-                SmartDashboard.putString("DB/String 6", String.format("Turning {%s, %s}", (startLocation - 2) * 0.4, -0.4));
+                updateSmartDashboard(String.format("Turning {%s, %s}", (startLocation - 2) * 0.4, -0.4));
                 drive.updateSpeed(new LambdaJoystick.ThrottlePosition((startLocation - 2) * 0.4, -0.75));
                 changeState(State.Done, TURNING_TIME);
                 break;
 
             case Done:
-                SmartDashboard.putString("DB/String 6", "Done");
+                updateSmartDashboard("Done");
                 drive.updateSpeed(new LambdaJoystick.ThrottlePosition(0, 0));
                 break;
         }
+    }
+
+    private void updateSmartDashboard(String message){
+        SmartDashboard.putString("DB/String 6", message);
     }
 
     private void changeState(State s, double time) {
@@ -84,7 +90,6 @@ public class Autonomous {
         }
     }
 
-    //State Machine
     public enum State {
         Beginning, Waiting, Driving, Turning, Done
     }

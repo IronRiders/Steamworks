@@ -16,53 +16,28 @@ public class DriveTrain {
         gearShifting = new DoubleSolenoid(gearShiftPort1, gearShiftPort2);
     }
 
-    // This method takes the position of the joystick, and moves the robot accordingly.
     public void updateSpeed(LambdaJoystick.ThrottlePosition throttlePosition) {
-        double x = throttlePosition.x;
-        double y = throttlePosition.y;
-        if (backwards) {
-            leftVictor.set(-y - x);
-            rightVictor.set(y - x);
-        } else {
-            leftVictor.set(y - x);
-            rightVictor.set(-y - x);
-        }
+        double left = -throttlePosition.y - throttlePosition.x;
+        double right = throttlePosition.y - throttlePosition.x;
+        leftVictor.set(backwards ? left : right);
+        rightVictor.set(backwards ? right : left);
     }
 
     public void toggleGearShifting() {
         setGear(!state);
     }
 
-    //shifts the boolean
     public void setGear(boolean b) {
         state = b;
-        if (state) {
-            SmartDashboard.putString("DB/String 8", "Fast");
-            gearShifting.set(DoubleSolenoid.Value.kReverse);
-
-        } else {
-            SmartDashboard.putString("DB/String 8", "Slow");
-            gearShifting.set(DoubleSolenoid.Value.kForward);
-        }
+        SmartDashboard.putString("DB/String 8", state ? "Fast" : "Slow");
+        gearShifting.set(state ? DoubleSolenoid.Value.kReverse : DoubleSolenoid.Value.kForward);
     }
 
-    //set backwards to notbackwards
     public void toggleBackwards() {
         backwards = !backwards;
     }
 
-    //the boolean goes backwards
-    public void setBackwards(boolean value) {
-        backwards = value;
-    }
-
-    //when we win it goes left?
-    public VictorSP getLeftVictor() {
-        return leftVictor;
-    }
-
-    //when we win it goes left?
-    public VictorSP getRightVictor() {
-        return rightVictor;
+    public void setBackwards(boolean backwards){
+        this.backwards = backwards;
     }
 }

@@ -3,7 +3,7 @@ package org.usfirst.frc.team4180.robot;
 import java.util.function.Consumer;
 
 public class LambdaJoystick extends edu.wpi.first.wpilibj.Joystick {
-    public Button[] buttons = new Button[11];
+    private Button[] buttons = new Button[11];
     private Consumer<ThrottlePosition> joystickListener;
 
     /**
@@ -17,60 +17,66 @@ public class LambdaJoystick extends edu.wpi.first.wpilibj.Joystick {
     }
 
     /**
-     * Accounts for joy-stick error by rounding small numbers to 0.
-     * @param d A joystick value from -1 to 1.
-     * @return If d is within 0.03 of 0 d is rounded down to 0.
+     * Create a new Joystick Listener given the USB port.
+     * @param port USB port on the computer that the joystick is plugged in.
      */
-    private static double buffer(double d) {
-        return (d > 0.03 || d < -0.03) ? d : 0;
+    public LambdaJoystick(int port){
+        this(port, (ThrottlePosition position) -> {});
     }
 
     /**
      * Create a new button listener to run when a button on the joystick is pressed or released.
      * @param buttonNum The number of the button written on the joystick (1 - 10).
-     * @param onKeyDown Action to be executed when the button is pressed.
-     * @param onKeyUp Action to be executed when the button is released.
+     * @param onPress Action to be executed when the button is pressed.
+     * @param onRelease Action to be executed when the button is released.
      */
-    public void addButton(int buttonNum, Runnable onKeyDown, Runnable onKeyUp) {
-        buttons[buttonNum - 1] = new Button(onKeyDown, onKeyUp);
+    public void addButton(int buttonNum, Runnable onPress, Runnable onRelease) {
+        buttons[buttonNum - 1] = new Button(onPress, onRelease);
     }
 
     /**
      * Create a new button listener to run when a button on the joystick is pressed.
      * @param buttonNum The number of the button written on the joystick (1 - 10).
-     * @param onKeyDown Action to be executed when the button is pressed.
+     * @param onPress Action to be executed when the button is pressed.
      */
-    public void addButton(int buttonNum, Runnable onKeyDown) {
-        addButton(buttonNum, onKeyDown, () -> {});
+    public void addButton(int buttonNum, Runnable onPress) {
+        addButton(buttonNum, onPress, () -> {});
     }
 
     /**
      * Listens to buttons and the throttle and calls action listeners
      */
     public void listen() {
-        //Iterate through the array of buttons and do whatever they're asking
         for (int i = 0; i < buttons.length; i++) {
             if (buttons[i] != null) {
                 buttons[i].listen(this.getRawButton(i + 1));
             }
         }
+        joystickListener.accept(new ThrottlePosition(buffer(getX()), buffer(getY()), buffer(getZ())));
+    }
 
-        joystickListener.accept(new ThrottlePosition(buffer(this.getX()), buffer(this.getY()), buffer(this.getZ())));
+    /**
+     * Accounts for joy-stick error by rounding small numbers to 0.
+     * @param d A joystick value from -1 to 1.
+     * @return If d is within 0.03 of 0, d is rounded down to 0.
+     */
+    private static double buffer(double d) {
+        return (Math.abs(d) > 0.03) ? d : 0;
     }
 
     private class Button {
         public boolean currentState = false;
-        public Runnable onKeyDown;
-        public Runnable onKeyUp;
+        public Runnable onPress;
+        public Runnable onRelease;
 
         /**
          * Create a new Button listener given a Runnable for when the button is pressed or released.
-         * @param onKeyDown Runnable for when the button is pressed down.
-         * @param onKeyUp Runnable for when the button is released.
+         * @param onPress Runnable for when the button is pressed down.
+         * @param onRelease Runnable for when the button is released.
          */
-        public Button(Runnable onKeyDown, Runnable onKeyUp) {
-            this.onKeyDown = onKeyDown;
-            this.onKeyUp = onKeyUp;
+        public Button(Runnable onPress, Runnable onRelease) {
+            this.onPress = onPress;
+            this.onRelease = onRelease;
         }
 
         /**
@@ -80,11 +86,7 @@ public class LambdaJoystick extends edu.wpi.first.wpilibj.Joystick {
         public void listen(boolean newState) {
             if (currentState != newState) {
                 currentState = newState;
-                if (newState) {
-                    onKeyDown.run();
-                } else {
-                    onKeyUp.run();
-                }
+                (newState ? onPress : onRelease).run();
             }
         }
     }

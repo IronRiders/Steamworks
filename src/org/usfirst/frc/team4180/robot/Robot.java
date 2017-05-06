@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4180.robot;
 
-import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 
@@ -48,9 +47,8 @@ public class Robot extends IterativeRobot {
     }
 
     private void setUpCameras() {
-        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        CameraServer.getInstance().startAutomaticCapture();
         CameraServer.getInstance().addAxisCamera("10.41.80.11");
-        //camera.setResolution(640, 480);
     }
 
     @Override
