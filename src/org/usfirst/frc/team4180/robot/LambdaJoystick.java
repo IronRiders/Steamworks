@@ -64,6 +64,9 @@ public class LambdaJoystick extends edu.wpi.first.wpilibj.Joystick {
         return (Math.abs(d) > 0.03) ? d : 0;
     }
 
+    /**
+     * Button listener holds runnables for when the button is pressed or released.
+     */
     private class Button {
         public boolean currentState = false;
         public Runnable onPress;
@@ -91,6 +94,9 @@ public class LambdaJoystick extends edu.wpi.first.wpilibj.Joystick {
         }
     }
 
+    /**
+     * Throttle Position holds doubles x, y, and z representing the location of the throttle and dial.
+     */
     public static class ThrottlePosition {
         public double x, y, z;
 
