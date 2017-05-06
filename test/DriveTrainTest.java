@@ -29,6 +29,7 @@ public class DriveTrainTest extends RobotTest {
 	}
 	
 	public void testUpdateSpeed(boolean backwards) {
+		/*
 		final DriveTrain drivetrain = new DriveTrain(Robot.LEFT_DRIVE_PORT, Robot.RIGHT_DRIVE_PORT, Robot.SHIFTING_PORT_1 , Robot.SHIFTING_PORT_2);
 		
 		final double[][] inputs = {
@@ -83,7 +84,7 @@ public class DriveTrainTest extends RobotTest {
 		Assert.assertEquals(-1 * back, drivetrain.getLeftVictor().getSpeed(), 0);
 		Assert.assertEquals(3 * back, drivetrain.getRightVictor().getSpeed(), 0);*/
 		
-		
+
 	}
 	
 }

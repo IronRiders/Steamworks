@@ -5,7 +5,7 @@ import org.usfirst.frc.team4180.robot.Robot;
 
 import edu.wpi.first.wpilibj.Timer;
 
-public class StressTests {
+public class  StressTests {
 	Timer timer = new Timer();
 /*
 	public void climberTest(int interval) {
