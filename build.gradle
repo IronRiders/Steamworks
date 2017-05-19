@@ -1,0 +1,63 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "gradle.plugin.jaci.openrio.gradle:GradleRIO:2017.1.5"
+    }
+}
+
+def robotManifest = {
+	attributes 'Main-Class': 'edu.wpi.first.wpilibj.RobotBase'
+	attributes 'Robot-Class': frc.robotClass
+}
+
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: "jaci.openrio.gradle.GradleRIO"
+
+dependencies {
+    compile wpilib()
+    compile talonSrx()
+    compile navx()
+    
+	testCompile 'junit:junit:4.12'
+	testCompile 'org.mockito:mockito-all:1.10.19'
+	testCompile 'org.powermock:powermock-mockito-release-full:1.6.4'
+}
+
+frc {
+	team = "4180"
+	robotClass = "org.usfirst.frc.team4180.robot.Robot"
+}
+
+jar {
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    manifest robotManifest
+}
+
+repositories {
+	mavenCentral()
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs = ['src']
+		}
+	}
+	test {
+		java {
+			srcDirs = ['test']
+			exclude '**/mock/**'
+		}
+	}
+	testMock {
+		java {
+			srcDirs = ['test/mock']
+		}
+	}
+}
