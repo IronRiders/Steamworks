@@ -49,15 +49,23 @@ sourceSets {
 			srcDirs = ['src']
 		}
 	}
+	testMock {
+		java {
+			srcDirs = ['test/mock']
+			compileClasspath += main.compileClasspath
+		}
+	}
+
 	test {
 		java {
 			srcDirs = ['test']
 			exclude '**/mock/**'
 		}
 	}
-	testMock {
-		java {
-			srcDirs = ['test/mock']
-		}
-	}
+}
+
+test {
+	// Must list testMock classes first so that they are used instead of the native WPILib
+	// classes
+	classpath = sourceSets.testMock.output + project.sourceSets.test.runtimeClasspath
 }
