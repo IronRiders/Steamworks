@@ -1,72 +1,21 @@
 package org.usfirst.frc.team4180.robot;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class Ramp {
-	private Spark RampSpark; 
-	
-	private DigitalInput upSwitch;
-	private DigitalInput downSwitch; 
-	private DigitalInput rightGearCheckSwitch;
-	private DigitalInput leftGearCheckSwitch;
-	
-	double idealSpeed = 0;
+    private DoubleSolenoid rampSolenoid;
 
-	public Ramp(int SparkPort, int upSwitchPort, int downSwitchPort, int leftCheckPort, int rightCheckPort) {
-		RampSpark = new Spark(SparkPort);
-		upSwitch = new DigitalInput(upSwitchPort);
-		downSwitch = new DigitalInput(downSwitchPort);
-		rightGearCheckSwitch = new DigitalInput(rightCheckPort);
-		leftGearCheckSwitch = new DigitalInput(leftCheckPort);
-	}
+    public Ramp(int solenoidPort1, int solenoidPort2) {
+        rampSolenoid = new DoubleSolenoid(solenoidPort1, solenoidPort2);
+        rampSolenoid.set(Value.kReverse);
+    }
 
-	public void setIdealSpeed(double idealSpeed) {
-		 this.idealSpeed = idealSpeed;
-	}
+    public void toggleRamp() {
+        rampSolenoid.set(rampSolenoid.get() == Value.kReverse ? Value.kForward : Value.kReverse);
+    }
 
-	public void updateSpeed() {
-		if (idealSpeed <= 0 && !downSwitch.get()) {
-			RampSpark.set(idealSpeed);
-		}
-		else if (idealSpeed >= 0 && !upSwitch.get()) {
-			RampSpark.set(idealSpeed);
-		}
-		else {
-			RampSpark.set(0);
-		}
-	}
-
-	public void up() {
-		setIdealSpeed(0.5);
-	}
-	
-	public void down() {
-		setIdealSpeed(-0.5);
-	}
-	
-	public void stop() {
-		setIdealSpeed(0);
-	}
-	
-	public boolean rightGearCheck() {
-		return rightGearCheckSwitch.get();
-	}
-
-	public boolean lefttGearCheck() {
-		return leftGearCheckSwitch.get();
-	}
-	
-	public Spark getSpark(){
-		return RampSpark;
-	}
-	public double getIdealSpeed(){
-		return idealSpeed;
-	}
-	public boolean upSwitchCheck() {
-		return upSwitch.get();
-	}
-	public boolean downSwitchCheck() {
-		return downSwitch.get();
-	}
-	}
+    public void set(Value value) {
+        rampSolenoid.set(value);
+    }
+}

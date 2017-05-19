@@ -1,7 +1,7 @@
-/bin/
-/build/
-/dist/
-/.DS_Store
-/.gradle
-/.java-version
-/.settings
+bin/
+build/
+dist/
+.DS_Store
+.gradle
+.java-version
+.settings

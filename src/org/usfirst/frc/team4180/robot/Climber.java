@@ -1,35 +1,22 @@
 package org.usfirst.frc.team4180.robot;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Climber {
+    private VictorSP ClimbVictor;
 
-	private VictorSP ClimbVictor; 
-	private DigitalInput topSwitch; 
-	// Top switch is used to ensure that the motors don't spin when the robot is at the top of the rope.
+    public Climber(int VictorPort1) {
+        ClimbVictor = new VictorSP(VictorPort1);
+    }
 
-	public Climber(int VictorPort, int TopSwitchPort) { 
-		ClimbVictor = new VictorSP(VictorPort);
-		topSwitch = new DigitalInput(TopSwitchPort);
-	}
-	
-	//sets speed of motor to the y location of the joystick.
-	public void updateSpeed(double[] JoystickInfo) { 
-		double y = JoystickInfo[1];						
-		if (atTop() && y > 0) {
-			ClimbVictor.set(0);
-		}
-		else {
-			ClimbVictor.set(y); 
-		}
-	}
-	public double getSpeed(){
-		return ClimbVictor.get();
-	}
+    public void updateSpeed(double speed) {
+        ClimbVictor.set(speed);
+    }
 
-	public boolean atTop() {
-		return topSwitch.get(); 
-	}
-
+    public void acceptJoystickData(LambdaJoystick.ThrottlePosition position) {
+        double speed = (position.z + 1) / 2;
+        SmartDashboard.putString("DB/String 9", "" + speed);
+        updateSpeed(speed);
+    }
 }

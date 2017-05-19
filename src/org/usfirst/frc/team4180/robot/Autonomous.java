@@ -1,110 +1,96 @@
 package org.usfirst.frc.team4180.robot;
 
-import java.util.Timer;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.AnalogGyro;
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.BuiltInAccelerometer;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class Autonomous {
-	
-	
-	BuiltInAccelerometer accelerometer;
-	AnalogGyro gyro;
-	long time;
-	double vx;
-	double vy;
-	double distance;
-	int start;
-	int target;
-	int heading;
-	
-	public Autonomous (BuiltInAccelerometer accelerometer, AnalogGyro gyro){
-		this.accelerometer = accelerometer;
-		this.gyro = gyro;
-		this.gyro.calibrate();
-		time = -1;
-		vx = 0.0;
-		vy = 0.0;
-		distance = 0.0;
-		start = 2;
-		target = 2;
-	}
-	
-	
-	public boolean Start(){
-		gyro.reset();
-		try {
-			int i = Integer.parseInt(SmartDashboard.getString("DB/String 5", "2"));
-		}
-		catch (Exception e){
-			SmartDashboard.putString("DB/String 5", "Invalid Input :(");
-			return false;
-		}
-		try {
-			int i = Integer.parseInt(SmartDashboard.getString("DB/String 6", "2"));
-		}
-		catch (Exception e){
-			SmartDashboard.putString("DB/String 6", "Invalid Input :(");
-			return false;
-		}
-		start = Integer.parseInt(SmartDashboard.getString("DB/String 5", "2"));
-		target = Integer.parseInt(SmartDashboard.getString("DB/String 6", "2"));
-		
-		switch(3*start + target - 3) {
-		case 1: // start 1, target 1
-			heading = 0; //or whatever
-			break;
-		case 2: // start 1, target 2
-			heading = 60; 
-			break;
-		case 3: // start 1, target 3
-			break;
-		case 4: // start 2, target 1
-			break;
-		case 5: // start 2, target 2
-			break;
-		case 6: // ..etc
-			break;
-		case 7:
-			break;
-		case 8:
-			break;
-		case 9:
-			break;		
-		}
-		
-		return true;
-	}
-	
-	public void Periodic(){
-		double x = accelerometer.getX() * 9.8;
-		double y = accelerometer.getY() * 9.8;
-		long currentTime = System.currentTimeMillis();
-		
-		if (time < 0) {
-			time = currentTime;
-		}
-		
-		double dt = (currentTime - time) / 1000.0;
-		
-		vx += x * dt;
-		vy += y * dt;
-		
-		distance += Math.sqrt((vx * vx) + (vy * vy)) * dt;
-				
-		time = currentTime;
-		
-		double angle = gyro.getAngle() % 360;
-		if(angle < heading)
-		{
-			// robot turn
-		} else if(angle > heading) {
-			// robot turn, other direction
-				
-		}
-		
-	}
+    private State state;
+    private Timer autoTime;
+    private DriveTrain drive;
+    private Ramp ramp;
+
+    private double previousTime;
+    private int startLocation;
+
+    private static final double WAITING_TIME = 5;
+    private static final double DRIVING_TIME_1 = 2;
+    private static final double DRIVING_TIME_2 = 0.9;
+    private static final double TURNING_TIME = 0.75;
+
+    public Autonomous(DriveTrain drive, Ramp ramp) {
+        previousTime = 0;
+        state = State.Beginning;
+        autoTime = new Timer();
+        this.drive = drive;
+        this.drive.setBackwards(false);
+        this.drive.setGear(true);
+        this.ramp = ramp;
+        this.ramp.set(DoubleSolenoid.Value.kReverse);
+        startLocation = getStartLocation();
+    }
+
+    private int getStartLocation(){
+        String locationStr = SmartDashboard.getString("DB/String 5", "0");
+        int startLocation;
+        try {
+            startLocation = Integer.parseInt(locationStr);
+        } catch (Exception e) {
+            startLocation = 0;
+        }
+        return startLocation;
+    }
+
+    public void Periodic() {
+        switch (state) {
+
+            case Beginning:
+                updateSmartDashboard("Beginning");
+                autoTime.start();
+                changeState(startLocation == 0 ? State.Done : State.Waiting, 0);
+                break;
+
+            case Waiting:
+                updateSmartDashboard("Waiting");
+                changeState(State.Driving, WAITING_TIME);
+                break;
+
+            case Driving:
+                updateSmartDashboard("Driving");
+                drive.updateSpeed(new LambdaJoystick.ThrottlePosition(0, -0.4));
+                if (startLocation == 2) {
+                    changeState(State.Done, DRIVING_TIME_1);
+                } else {
+                    changeState(State.Turning, DRIVING_TIME_2);
+                }
+                break;
+
+            case Turning:
+                updateSmartDashboard(String.format("Turning {%s, %s}", (startLocation - 2) * 0.4, -0.4));
+                drive.updateSpeed(new LambdaJoystick.ThrottlePosition((startLocation - 2) * 0.4, -0.75));
+                changeState(State.Done, TURNING_TIME);
+                break;
+
+            case Done:
+                updateSmartDashboard("Done");
+                drive.updateSpeed(new LambdaJoystick.ThrottlePosition(0, 0));
+                break;
+        }
+    }
+
+    private void updateSmartDashboard(String message){
+        SmartDashboard.putString("DB/String 6", message);
+    }
+
+    private void changeState(State s, double time) {
+        SmartDashboard.putString("DB/String 7", String.format("%d >= %d", Math.round(autoTime.get()), Math.round(time + previousTime)));
+        if (autoTime.get() >= time + previousTime) {
+            state = s;
+            previousTime = autoTime.get();
+        }
+    }
+
+    public enum State {
+        Beginning, Waiting, Driving, Turning, Done
+    }
 }
